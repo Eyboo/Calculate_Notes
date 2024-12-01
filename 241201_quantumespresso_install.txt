@@ -1,0 +1,41 @@
+尝试编译安装quantum espresso在集群上
+1. module load intel相关的编译器包，mpi, mkl等
+2. 在已经 ./install/configure --prefix=path/to/qe 之后，修改make.inc中关于libxc的选项，关于lapack选项
+3. make -j all 报错
+make[3]: *** [slaed6.o] Error 1
+ifort: error #10103: can't fork process: Resource temporarily unavailable
+反复出现这个错误，于是 Ctrl+C 停止运行，然后重新 make all
+/share/home/hello/lib/lapack/liblapack.a(dtrtri.o): In function `dtrtri_':
+dtrtri.f:(.text+0x13d): undefined reference to `_gfortran_concat_string'
+/share/home/hello/lib/lapack/liblapack.a(ilaenv.o): In function `ilaenv_':
+ilaenv.f:(.text+0x59): undefined reference to `_gfortran_compare_string'
+ilaenv.f:(.text+0x276): undefined reference to `_gfortran_compare_string'
+ilaenv.f:(.text+0x29f): undefined reference to `_gfortran_compare_string'
+ilaenv.f:(.text+0x2d9): undefined reference to `_gfortran_compare_string'
+ilaenv.f:(.text+0x2fa): undefined reference to `_gfortran_compare_string'
+/share/home/hello/lib/lapack/liblapack.a(ilaenv.o):ilaenv.f:(.text+0x319): more undefined references to `_gfortran_compare_string' follow
+/share/home/hello/lib/lapack/liblapack.a(xerbla.o): In function `xerbla_':
+xerbla.f:(.text+0x49): undefined reference to `_gfortran_st_write'
+xerbla.f:(.text+0x54): undefined reference to `_gfortran_string_len_trim'
+xerbla.f:(.text+0x66): undefined reference to `_gfortran_transfer_character_write'
+xerbla.f:(.text+0x76): undefined reference to `_gfortran_transfer_integer_write'
+xerbla.f:(.text+0x7e): undefined reference to `_gfortran_st_write_done'
+xerbla.f:(.text+0x87): undefined reference to `_gfortran_stop_string'
+/share/home/hello/lib/lapack/liblapack.a(iparmq.o): In function `iparmq_':
+iparmq.f:(.text+0x1c9): undefined reference to `_gfortran_compare_string'
+iparmq.f:(.text+0x1e4): undefined reference to `_gfortran_compare_string'
+iparmq.f:(.text+0x200): undefined reference to `_gfortran_compare_string'
+iparmq.f:(.text+0x265): undefined reference to `_gfortran_compare_string'
+iparmq.f:(.text+0x280): undefined reference to `_gfortran_compare_string'
+make[1]: *** [virtual_v2.x] Error 1
+make[1]: Leaving directory `/share/home/hello/quantum_espresso/qe-7.3.1/upflib'
+make: *** [libupf] Error 1
+报错这个，不知道如何解决
+
+尝试删除 make.inc 中的 lapack 相关的，重新 make
+依然报错!
+
+make clean，返回重开
+./install/configure MPIF90=mpiifort CC=icc F77=ifort --with-scalapack=intel --prefix=/share/home/yibo/lib/qe7
+重新尝试编译
+

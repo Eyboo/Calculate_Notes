@@ -1,0 +1,77 @@
+LaTeX Workshop是VSCode中用于编写LaTeX文档的插件，提供语法高亮、代码补全、编译等功能：
+打开VSCode，点击左侧的扩展按钮，搜索“LaTeX Workshop”并安装
+
+安装插件后，需要配置LaTeX Workshop以适应您的编译环境：
+打开VSCode的设置，搜索“LaTeX Workshop”，进入相关设置选项。
+配置编译工具链，可以添加或修改编译食谱（recipes），这些食谱决定了文档的编译方式和顺序
+
+配置xelatex或pdflatex作为编译工具，具体配置如下
+{
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": ["xelatex"]
+        },
+        {
+            "name": "pdflatex",
+            "tools": ["pdflatex"]
+        }
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ]
+}
+
+打开终端或命令提示符，运行以下命令配置Git：
+
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+替换Your Name和your_email@example.com为学生的实际姓名和邮箱。
+
+生成SSH密钥（如果使用SSH方式连接Git服务器）：
+
+ssh-keygen -t ed25519 -C "your_email@example.com"
+按照提示操作，将生成的公钥添加到Git服务器的SSH密钥列表中。
+
+步骤4：Git版本控制使用案例
+创建新的Git仓库：
+
+在VSCode中打开LaTeX项目文件夹。
+打开命令面板（Ctrl+Shift+P），搜索并运行“Git: Initialize Repository”。
+添加文件到仓库：
+
+将LaTeX文件添加到项目中。
+打开命令面板，搜索并运行“Git: Add”，选择要添加的文件。
+提交更改：
+
+在命令面板中搜索并运行“Git: Commit”，输入提交信息并提交更改。
+连接远程仓库：
+
+如果使用GitHub、GitLab或Bitbucket等Git服务，首先在这些平台上创建一个新的仓库。
+在VSCode的Git面板中，点击“Publish Repository”按钮，按照提示将本地仓库与远程仓库关联。
+推送更改到远程仓库：
+
+在命令面板中搜索并运行“Git: Push”，将本地更改推送到远程仓库。
+拉取远程更改：
+
+当其他协作者提交更改后，可以通过“Git: Pull”命令拉取远程更改。
+通过以上步骤，学生应该能够在VSCode中编写LaTeX代码，并通过Git进行版本管理。这些步骤涵盖了从安装到使用的全过程，适合刚开始接触计算机的学生。
