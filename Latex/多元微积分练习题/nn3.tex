@@ -1,0 +1,486 @@
+\section{曲线曲面积分}
+\subsection{引入与曲线积分}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 在这一节课中，老师提纲挈领讲述了曲线积分和曲面积分的全貌。曲线积分是将定积分从直线上推广到曲线上，曲面积分是平面上的重积分推广到曲面上，不难发现之前做一元定积分时都是 $x$ 从某个值积分到某个值，这是一段直线定积分，因为是一维的，重积分也是在二维平面上进行。实际运用中完全有曲线曲面的情况，在物理的电磁学中应该尤其有这样的感受。现在对曲线和曲面积分进行一些一般性的研究，会发现这是非常有趣的内容。
+
+    \item 向量场：场的概念非常基本并且非常重要，可以简单分为标量场和向量场，空间中的温度分布就是一个标量场，温度这个物理量只有大小没有方向，这个场的方程是一个三元函数 $f(x,y,z)$；但是空间中的速度场就是一个向量场，因为速度是矢量，向量场的方程是一个多元向量值函数，$F(x,y,z) = (P(x,y,z，Q(x,y,z), R(x,y,z))$。为方便后文叙述，我们约定对于三维的向量场其分量写成 $(P,Q,R)$，对于二维的向量场，其分量写成 $F(x,y)= ( P(x,y), Q(x,y) )$
+
+    \item 单位向量的方向余弦，给定 $n$ 维欧氏空间中的一个向量 $T = (x_1, x_2, \cdots, x_n) \in \mathbb{R}^n$，它与第 $i$ 个坐标轴正向方向的夹角为 $\theta \in [0, \pi]$，且
+    $$
+    \cos \theta _i = \frac{x_i}{|T _i|}, \quad i=1,2,\cdots, n
+    $$
+    对于 $n$ 维空间中的单位向量 $t$ ，则显然它与各个坐标轴正方向之间的夹角余弦有如下关系
+    $$
+    t = (\cos \theta _1, \cos \theta _2, \cdots, \cos \theta _n)
+    $$
+    显然空间中某个向量与各个坐标轴之间的夹角的余弦值平方和为1，即
+    \[
+        \cos^2\theta_1+\cos^2\theta_2+\cdots+\cos^2\theta_n= \Sigma_{i=1}^n \cos ^2 \theta _i = 1 
+    \]
+    
+    一般将二维中的单位向量记作 $(\cos \alpha, \cos \beta)$，将三维空间中的单位向量记作 $(\cos \alpha, \cos \beta, \cos \gamma)$
+
+    \item 平面曲线的切向量，一条平面曲线可以表示为一个二维的向量值函数，$\mathbf{r}: t \to (x(t), y(t))$，有向曲线元也就是 $\mathbf{r}$的微分
+    \[
+        \mathrm{d} \mathbf{r} = (\mathrm{d}x, \mathrm{d}y) = \mathbf{r}' \mathrm{d}t = \mathbf{t} \mathrm{d}s
+    \]
+    其中 $\mathrm{d}s$是指弧长微元，即
+    \[
+    \mathrm{d}s = |\mathrm{d} \mathbf{r}| = \sqrt{dx^2+dy^2}=\sqrt{(x^{\prime})^2+(y^{\prime})^2}dt
+    \]
+    粗写的 $\mathbf{t}$ 指的是单位切向量，从上面的式子可以看出
+    \[
+        \mathbf t=\frac{d\mathbf r}{|d\mathbf r|}=\left(\frac{dx}{ds},\frac{dy}{ds}\right)=(\cos\alpha,\cos\beta)
+    \]
+    这里写成 $(\cos\alpha,\cos\beta)$ 是提醒说二维单位向量的表示，并没有其他特殊的含义。
+
+    \item 有了平面曲线切向量的概念，我们很容易引出空间曲线的切向量的概念，即对应的有向曲线微元
+    \[
+        d\mathbf{r}=(dx,dy,dz)=(x',y',z')dt=\mathbf{r}'dt=\mathbf{t}ds
+    \]
+    弧长微元
+    \[
+        ds=|d\mathbf{r}|=\sqrt{dx^2+dy^2+dz^2}=\sqrt{(x')^2+(y')^2+(z')^2}dt
+    \]
+    单位切向量
+    \[
+    \mathbf{t}=\frac{d\mathbf{r}}{|d\mathbf{r}|}=\begin{pmatrix}\frac{dx}{ds},\frac{dy}{ds},\frac{dz}{ds}\end{pmatrix}=(\cos\alpha,\cos\beta,\cos\gamma)
+    \]
+    同样的，这里 $(\cos\alpha,\cos\beta,\cos\gamma)$也只是记号。
+
+    \item 曲面法向量，前面提醒过，曲面必须要有两个自由变量，所以空间中的曲面的参数方程可以写为 $\mathbf{r}: (u,v) \to (x(u,v), y(u,v), z(u,v))$，一个面积微元也就是我们前面求曲面面积时的积分微元为
+    \[
+        dS=|\mathbf{r}_u\times \mathbf{r}_v| \mathrm{d}u \mathrm{d}v = \frac{\mathrm{d}u \mathrm{d}v}{\cos \theta}
+    \]
+    其中 $\theta$ 是曲面微元的法向量与 $uv$ 平面法向量之间的夹角，也就是曲面微元与平面 $uv$ 之间的夹角。
+    如果是 $\mathbf{r}: (x,y) \to (x(x,y), y(x,y), z(x,y))$，则曲面面积微元的法向量为 $N=\mathbf{r}_x \times \mathbf{r}_y$，将其单位化后记作
+    \[
+        \mathbf{n} = \frac{\mathbf{N}}{|\mathbf{N}|}= (\cos \alpha, \cos \beta, \cos \gamma) = \frac{(F_x, F_y, F_z)}{|\nabla F|}
+    \]
+    记有向曲面元为
+    \[
+        d \mathbf{S} = \mathbf{n} \mathrm{d} S = (\cos \alpha, \cos \beta, \cos \gamma) \mathrm{d} S =(\pm \mathrm{d}\sigma_{yz}, \pm \mathrm{d}\sigma_{zx}, \pm \mathrm{d}\sigma_{xy})
+    \]
+    曲面微元 $\mathrm{d}S$与在三个面上的投影的面积关系为（正负号因 $\cos \theta $产生）
+    \[
+        \mathrm{d}S = \left|\frac{\mathrm{d} \sigma _{yz}}{\cos \alpha} \right| 
+        = \left| \frac{\mathrm{d} \sigma_{zx}}{\cos \beta} \right|
+        = \left| \frac{\mathrm{d} \sigma _{xy}}{\cos \gamma} \right|
+    \]
+    上面这几点内容是复习，要熟练掌握，因为是学习曲线积分和曲面积分的基础。
+
+    \item 第一类曲线积分，被积函数为一个标量函数，积分微元也是一个标量，沿着曲线进行积分即
+    \[
+        \int _L f \mathrm{d} s = \lim_{\lambda\to0}\sum_if(\xi_i)\Delta s_i = \int _a^b f(\mathbf{r}(t)) \sqrt{(x'_1)^2+(x'_2)^2 + \cdots + (x'_n)^2} \mathrm{d}t
+    \]
+    其中一般从较小的端点 $a$ 积分到较大的端点 $b$，对于二维和三维具体的公式，进行代入即可。第一类曲线积分的被积函数是一个标量函数，产生这种积分的出发点容易想到是计算密度不均匀的曲线的质量。
+
+    \item 第二类曲线积分的被积函数是一个向量，积分微元也是一个向量，沿着曲线进行积分即
+    \[
+        \int _L \mathbf{F} \cdot \mathrm{d} \mathbf{r} = \int _L (f_1 \mathrm{d}x_1, f_2\mathrm{d}x_2, \cdots, f_n \mathrm{d}x_n) = \int _a^b (f_1 x'_1, f_2 x'_2, \cdots, f_n x'_n)\mathrm{d}t
+    \]
+    这里 $a$ 和 $b$ 的值是根据积分起点和终点选定的。第二类曲线积分的简单物理对应是沿着曲线计算变力做功，它与第一类曲线积分的明显不同是被积函数的不同，即被积函数是一个向量。第二类曲线积分有时也被称为对坐标的曲线积分。两类曲线积分的总的形式就如此简单，在实际题目中看到会懵的原因主要是分辨不清楚是哪一种积分并且形式没有总的形式这样显然，可能会辨认不出来，不过理解了最基础的，具体题目多练习几道就没问题，需要有一个熟悉过程。
+
+    \item 曲线积分常见的性质有，对于第一类曲线积分来说
+    \[
+        \int _L 1 \mathrm{d}s = S
+    \]
+    被积函数为1的时候得到的就是曲线的长度，如果曲线被分为多段，则可以逐段相加
+    \[
+        \int _L f \mathrm{d} s = \int _{L_1} f \mathrm{d}s + \int _{L_2} f \mathrm{d}s, \quad L = L_1 + L_2
+    \]
+    这个对于两类曲线积分来说都成立。第二类曲线积分是有方向的，所以
+    \[
+        \int_{-L}\mathbf{F}\cdot  \mathrm{d} \mathbf{r}=-\int_L\mathbf{F}\cdot 
+     \mathrm{d} \mathbf{r}
+    \]
+
+    \item 两类曲线积分的关系，对于第二类曲线积分，由于 $\mathrm{d} \mathbf{r} = \mathbf{t} \mathrm{d}s$，所以有
+    \[
+        \int _L \mathbf{F} \cdot \mathrm{d} \mathbf{r} = \int _L \mathbf{F} \cdot \mathbf{t} \mathrm{d}s = \int _L (\mathbf{F} \cdot \mathbf{t})\mathrm{d}s = \int _L (f_1 \cos \theta _1+ f_2 \cos \theta _2 + \cdots + f_n \cos \theta _n)\mathrm{d}s
+    \]
+    这是两类曲线积分的联系，即计算第二类曲线积分时在已知微元与各个轴的余弦值时，很容易将第二类曲线积分转化为第一类曲线积分。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 计算 $\int _L xy^4 \mathrm{d}s$，其中 $L$ 是圆 $x^2+y^2=16$的右半边。
+
+    \item 计算 $\int _L xyz \mathrm{d} s $， 其中 $L$ 是螺旋线 $\mathbf{r}(t) =(\cos t , \sin t, 3t), 1 \le t \le 4 \pi$。
+
+    \item 计算 $\int _L xy \mathrm{d}x$，其中 $L$ 是抛物线 $y^2=x$，定向从 $A(1,-1)$到 $B(1,1)$。
+
+    \item 计算 $\int _L \mathbf{F} \cdot \mathrm{d} \mathbf{r}$，其中 $\mathbf{F} = (8x^2yz, 5z, -4xy)$， $L$是曲线 $\mathbf{r}=(t,t^2,t^3)$，定向从 $t=0$ 到 $t=1$。
+
+    \item 计算 $\int _L x^3 \mathrm{d} x + 3zy \mathrm{d}y - x^2y \mathrm{d}z$，其中 $L$ 是从点 $A(3,2,1)$ 到点 $B(0,0,0)$ 的直线段。
+
+    \item 计算 $\int _L y^2 \mathrm{d}x$，其中 $L$为(1) 从 $A(a,0)$到 $B(-a,0)$的单位圆上半圆; (2)从 $A(a,0)$到 $B(-a,0)$的直线段。
+
+    \item 计算 $\int _L 2xy \mathrm{d}x + x^2 \mathrm{d}y$，其中 $L$ 为 (1)抛物线 $y=x^2$从 $O(0,0)$到 $B(1,1)$的有向弧；(2)抛物线 $x=y^2$上从 $O(0,0)$ 到 $B(1,1)$的有向弧; (3)从 $O(0,0)$到 $A（1，0$再到 $B(1,1)$的有向折线。
+\end{enumerate}
+从上面的例子中我们可以看出，曲线积分的值可能依赖于路径的选择。
+
+\subsubsection{习题参考}
+\begin{enumerate}
+\item (教材第193页习题11-1第3题偶数题) 计算下列对弧长的曲线积分
+    \begin{enumerate}[(1)]
+        \item $\int _L (x+y) \mathrm{d} s$，其中 $L$ 为连接 $(1,0)$ 及 $(0,1)$两点的线段。
+        \item $\oint _L \mathrm{e}^{\sqrt{x^2 + y^2}} \mathrm{d}s$，其中 $L$ 为圆周 $x^2+y^2 =a^2$，直线 $y=x$以及 $x$轴在第一象限内所围成的扇形的整个边界。
+        \item $\int _\Gamma x^2 yz \mathrm{d}s$，其中 $\Gamma$为折线 ABCD，这里 A,B,C,D依次为点 $(0,0,0),(0,0,2),(1,0,2),(1,3,2)$。
+        \item $\int _L (x^2 + y^2 ) \mathrm{d}s$，其中 $L$ 为曲线 $x=a(\cos t + t\sin t), y = a(\sin t - t \cos t) (0 \le t \le 2 \pi)$。
+    \end{enumerate}
+
+\item (教材第193页习题11-1第5题) 设螺旋形弹簧一圈的方程为 $x=a \cos t, y= a\sin t, z=kt(0 \le t \le 2\pi)$，它的线密度 $\rho(x,y,z) = x^2+y^2+z^2$，求：
+    \begin{enumerate}[(1)]
+        \item 它关于 $z$ 轴的转动惯量 $I_Z$。
+        \item 它的质心。
+    \end{enumerate}
+
+\item (教材第203页习题11-2第3题奇数题) 计算下列对坐标的曲线积分
+    \begin{enumerate}[(1)]
+        \item $\int _L (x^2 - y^2) \mathrm{d}x$，其中 $L$ 是抛物线 $y=x^2$ 上从点 $(0,0)$到点 $(2,4)$的一段弧。
+        
+        \item $\int _L y \mathrm{d} x + x \mathrm{d}y$，其中 $L$ 为圆周 $x = R \cos t, y = R \sin t$上对应 $t$ 从 0 到 $\frac{\pi}{2}$的一段弧。
+        
+        \item $\int _\Gamma x^2 \mathrm{d}x + z \mathrm{d}y -y \mathrm{d}z $，其中 $\Gamma$为曲线 $x = k \theta, y= a \cos \theta, z = a \sin \theta$上对应 $\theta$从 0 到 $\pi$的一段弧。
+
+        \item $\int _\Gamma \mathrm{d} x - \mathrm{d}y + y \mathrm{d}z $，其中 $\Gamma$为有向闭折线ABCA，这里的A,B,C依次为 $(1,0,0),(0,1,0),(0,0,1)$。
+    \end{enumerate}
+
+\item (教材第204页习题11-2第5题) 一力场由沿横轴正方向的恒力 $\mathbf{F}$ 所构成，试求当一质量为 $m$ 的质点沿圆周 $x^2 + y^2 =R^2$ 按逆时针方向移过位于第一象限的那一段弧时场力所做的功。
+
+\item (教材第204页习题11-2第7题) 把对坐标的曲线积分 $\int _L P(x,y) dx + Q(x,y) dy$化成对弧长的曲线积分，其中$L$为
+    \begin{enumerate}[(1)]
+        \item 在 $xOy$面内沿直线从点 $(0,0)$ 到点 $(1,1)$。
+        \item 沿抛物线 $y=x^2$ 从点 $(0,0)$ 到点 $(1,1)$。
+        \item 沿上半圆周 $x^2 + y^2 = 2x$从点 $(0,0)$ 到点 $(1,1)$。
+    \end{enumerate}
+
+\end{enumerate}
+\subsection{格林公式}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item  在上面的习题当中，我们感受到了第二类曲线积分有时与积分路径有关，有时与积分路径无关，关键看被积函数，那被积函数满足什么条件时积分与路径无关呢？一元微积分时学到的微积分基本定理(牛顿-莱布尼茨公式)能推广到一般的曲线积分吗？
+    \[
+        \int_a^bf(x)dx=F(b)-F(a)
+    \]
+    不定积分能推广吗？
+    \[
+        F(x)=\int_a^xf(t)dt+C
+    \]
+
+    \item 我们知道，不定积分找原函数时可以如下理解，微分 $\mathrm{d} F(x) = f(x) \mathrm{d}x$，相当于$F'(x) = f(x)$
+    \[
+        \int f(x) \mathrm{d} x = \int \mathrm{d} F(x) = F(x)
+    \]
+    尝试将这个推广到多元积分呢？多元积分时 $ \mathrm{d} F(\mathbf{x}) = \nabla F \cdot  \mathrm{d} \mathbf{x}$，由此应该有
+    \[
+        \int \nabla F \cdot  \mathrm{d} \mathbf{x} = \int \mathrm{d} F(\mathbf{x}) = F(\mathbf{x})
+    \]
+    这很接近曲线积分的积分定理，即如果$L$ 是一条分段光滑曲线 $\mathbf{r}(t): [a,b] \to \mathbb{R}^n $，定向从 $\mathbf{a} = \mathbf{r}(a)$到 $\mathbf{b} = \mathbf{r}(b)$，如果 $f$ 在包含 $L$ 的一个开集内是 $C^{1}$ 的，则
+    \[
+        \int_L \mathrm{d} f=\int_L\nabla f\cdot \mathrm{d}\mathbf{r}=f(\mathbf{b})-f(\mathbf{a})
+    \]
+    这个定理的证明可以像之前一样，构造一个一元的映射，然后使用一元微积分中的牛顿莱布尼茨公式进行严格一些的证明。
+
+    \item 从上面讨论到的曲线积分的积分定理可以看出，对于被积函数 $\mathbf{F}(\mathbf{x})$如果它是某个函数的 “导数” 即存在一个 $f$ 满足 $\nabla f(\mathbf{x}) = \mathbf{F}(\mathbf{x})$ 时，它的曲线积分是与路径无关的，只要给定起点 $\mathbf{a}$ 和终点 $\mathbf{b}$，积分值就给定了 $f(\mathbf{b}) - f(\mathbf{a})$ (这和重力做功与路径无好像很类似)，类比称 $f(\mathbf{x})$ 为场 $\mathbf{F}(\mathbf{x})$ 的势函数
+    \[
+        f(\mathbf{x}) = \int _{\mathbf{a}}^\mathbf{x} \mathbf{F} \cdot \mathrm{d} \mathbf{r} + C
+    \]
+    其中 $\mathbf{a}$ 是一个定点，$C \in \mathbb{R}^1$是一个常数。
+
+    \item 曲线积分与路径无关的条件，假设 $\mathbf{F}$ 是开区域 $D$ 上的连续向量场，以下条件等价：
+    \begin{itemize}
+    	\item 存在势函数 $f$， 使得 $\mathbf{F} = \nabla f$
+            \item 积分 $\int _L \mathbf{F} \cdot \mathrm{d} \mathbf{r}$在 $D$ 中与路径无关
+            \item 对任意 $D$ 中的闭光滑曲线 $L$, 都有 $\oint _L \mathbf{F} \cdot \mathrm{d} \mathbf{r} = 0 $
+    \end{itemize}
+    积分符号上画个圈代表闭曲线上的积分，同时我们称一个向量场为保守(conservative)场，当它存在势函数 $f$ 使得 $\mathbf{F} = \nabla f$，常见的引力场和电场我们都已经学过重力势能和电势能。
+
+    \item 给我一个场的函数，我如何去判断这个场是不是保守场呢？回顾一下它的关键条件即存在一个势函数 $f$ 使得 $\nabla f = \mathbf{F} = (P,Q) = (\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y})$, 给我一个向量场我可以通过解后面这个等式构成的方程将势函数解出来，但是每次要解微分方程，这是不是太难了，有什么其他更好的办法吗？在前面学习偏导数时我们知道如果混合偏导数 $\frac{\partial^2f}{\partial x\partial y}$ 和 $\frac{\partial^2f}{\partial y\partial x}$都存在并且在某一点 $(x_0,y_0)$连续时，有
+    \[
+        \frac{\partial^2f}{\partial x\partial y}(x_0,y_0)=\frac{\partial^2f}{\partial y\partial x}(x_0,y_0)
+    \]
+    如果一个场的势函数存在，我们当然期望它的性质足够好(例如期望并且相信重力势能函数，电场势能函数)性质足够好，所以大胆相信势函数存在的话它的混合偏导数是处处连续的，也就是说有如下关系成立
+    \[
+        \frac{\partial^2f}{\partial x\partial y} = \frac{\partial^2f}{\partial y\partial x}
+    \]
+    在已知势场函数的情况下，验证这个等式比解微分方程要容易太多，即验证
+    \[
+        \frac{\partial P}{\partial y}=\frac{\partial Q}{\partial x}
+    \]
+    由此，我们便容易理解如下定理，假设 $\mathbf{F} = (P_1, P_2, \cdots, P_n)$是单连通区域 $D \subset \mathbb{R}^n$上的一个 $C^1$ 向量场，则 $\mathbf{F}$ 是保守场(i.e. $\mathbf{F} = \nabla f$)当且仅当
+    \[
+        \frac{\partial P_i}{\partial x_j}=\frac{\partial P_j}{\partial x_i},\quad\forall1\leq i,j\leq n
+    \]
+    这个定理的必要性证明只要我们将前面的思路倒过来叙述一遍即可，充分性可以使用 Green 公式 和 Stokes 公式来证明。其中单连通区域指的是没有 “洞” 的连通集合(我们提到过的引力场，电场是在哪个集合上的，这个集合上可不可能有 “洞”? )，严格的叙述即为如果 $D$ 中任意闭曲线能够在 $D$ 中连续收缩到一个点。
+
+    \item 格林公式，假设区域 $D \subset \mathbb{R}^2$ 的边界时一条分段光滑曲线 $L$， 记场 $\mathbf{F} = (P, Q) \in C^1(D)$, 则
+    \[
+        \int_L\mathbf{F}\cdot d\mathbf{r}=\int_LPdx+Qdy=\iint_D\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dxdy
+    \]
+    这里积分的方向称为“正向”，在之后没有特别说明也都是，所谓正向即观察者在 $L$ 上沿着该方向上走时，始终保持着 $D$ 在观察者的左侧，如果画了一个单位圆为区域 $D$，则正向就是逆时针沿着边缘走。格林公式将沿着某个边缘进行的积分（计算）转化成了计算这个区域内的东西。容易理解以下推论，在某些时候计算区域的面积时带来方便
+    \[
+        \iint_D1dxdy=\oint_Lxdy=-\oint_Lydx=\frac{1}{2}\oint_Lxdy-ydx.
+    \]
+
+    \item 格林公式在另外一种积分中的应用(格林公式的向量形式)，假设 $L$ 是二维区域 $D$ 的边界曲线，记 $\mathbf{n}$ 为 $L$ 上指向区域 $D$ 外侧的单位法向量，考虑积分 $\oint _L \mathbf{F} \cdot \mathbf{n} \mathrm{d}s$，解决这个积分可以利用法向量和单位切向量 $\mathbf{t} = (\cos \alpha, \cos \beta)$ 的关系(可以想象单位圆的切向量和法向量来帮助理解)
+    \[
+        \mathbf{n} = \left(\cos(\alpha-\frac{\pi}{2}),\cos(\beta+\frac{\pi}{2})\right)=(\sin\alpha,-\sin\beta)=(\cos\beta,-\cos\alpha)
+    \]
+    由此
+    \[
+        \oint _L \mathbf{F} \cdot \mathbf{n} \mathrm{d}s = \oint _L (P, Q) \cdot (\cos\beta,-\cos\alpha) \mathrm{d}s = \oint _L P \mathrm{d}y - Q \mathrm{d}x = \int _D \left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}\right) \mathrm{d}x \mathrm{d}y
+    \]
+    最后一个等式是由格林公式得到的，对于二维向量场 $\mathbf{F} = (P,Q) \in C^1$ 定义其散度
+    \[
+        \mathbf{divF} = \nabla \cdot \mathbf{F} = \frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}
+    \]
+    格林公式的向量形式是指
+    \[
+    \oint_L\mathbf{F}\cdot\mathbf{n}ds=\iint_D\mathbf{div}\mathbf{F}d\sigma
+    \]
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 计算 $\oint _L x^2y \mathrm{d}x -xy^2 \mathrm{d}y$，其中 $L$ 是圆 $x^2 + y^2 = a^2$取逆时针定向。
+
+    \item 计算 $\int \mathrm{e} ^{-y^2} \mathrm{d}x \mathrm{d}y$，其中 $D$ 是由点 $O(0,0), A(1,1), B(0,1)$确定的三角形区域。
+
+    \item 计算椭圆 $x = a \cos \theta , y = b \sin \theta $的面积。
+
+    \item 假定 $L$ 是一条不过原点的简单闭曲线(无自交点)， 取逆时针为定向，计算 $\oint_L\frac{xdy-ydx}{x^2+y^2}$
+
+    \item 证明 $\mathbf{F}(x,y) =\left(-\frac y{x^2+y^2},\frac x{x^2+y^2}\right) $是右半平面 $(x>0)$ 上的保守场，并找到势函数。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+\item (教材第217页习题11-3第2题) 利用曲线积分，求下列曲线所围成的图形的面积：
+    \begin{enumerate}[(1)]
+        \item 星形线 $x = a \cos^3 t, y=a \sin^3 t $。
+        \item 椭圆 $9x^2 + 16y^2 =144$。
+        \item 圆 $x^2 + y^2 =2ax$
+    \end{enumerate}
+
+\item (教材第217页习题11-3第6题) 证明下列曲线积分在整个 $xOy$ 面内与路径无关，并计算积分值
+    \begin{enumerate}[(1)]
+        \item $\int _{(1,1)}^{(2,3)} (x+y) dx + (x-y)dy$。
+        \item $\int _{(1,2)}^{(3,4)} (6xy^2 - y^3) dx + (6x^2y -3xy^2) dy$。
+        \item $\int _{(1,0)}^{(2,1)} (2xy - y^4 +3)dx + (x^2 - 4xy^3)dy $。
+    \end{enumerate}
+
+\item (教材第217页习题11-3第7题奇数题) 利用格林公式，计算下列曲线积分：
+    \begin{enumerate}[(1)]
+        \item $\oint _L (2x-y+4) dx + (5y + 3x -6) dy$，其中 $L$ 是三顶点分别为 $(0,0),(3,0),(3,2)$的三角形正向边界。
+        \item $\int _L (2xy^3 - y^2 \cos x)dx + (1-2y\sin x + 3x^2y^2)dy$，其中 $L$ 为在抛物线 $2x = \pi y^2$上由点 $(0,0)$ 到 $(\frac{\pi}{2}, 1)$的一段弧。
+    \end{enumerate}
+
+\item (教材第217页习题11-3第8题偶数题) 验证下列 $P(x,y)dx + Q(x,y)dy$在整个 $xOy$ 平面内是某一函数 $u(x,y)$ 的全微分，并求这样的一个 $u(x,y)$:
+    \begin{enumerate}[(1)]
+        \item $2xydx + x^2 dy$
+        \item $(3x^2y + 8xy^2)dx + (x^3 + 8x^2y + 12y \mathrm{e}^{y})dy$
+    \end{enumerate}
+
+\end{enumerate}
+
+\subsection{曲面积分}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 第一类曲面积分，被积函数为一个标量函数，积分微元也是标量，将曲面进行积分即为
+    \[
+        \int _S f \mathrm{d} S = \lim_{\lambda\to 0}\sum_if(\xi_i,\eta_i)\Delta S_i
+    \]
+    如果被积函数是1得到的就是曲面的面积，给定曲面不同的曲面形式时 $\mathrm{d} S$表达可以不同，当给定参数形式时 $\mathbf{r}(u,v)=(x(u,v),y(u,v),z(u,v)),(u,v)\in U$
+    \[
+        \int _S f dS=\int_Uf(\mathbf{r}(u,v))|\mathbf{r}_u\times\mathbf{r}_v|dudv
+    \]
+    当给显式形式 $z = z(x,y), (x,y) \in D$ 时
+    \[
+        \int_SfdS=\int_Df(x,y,z(x,y))\sqrt{z_x^2+z_y^2+1}dxdy
+    \]
+    当给定一般形式时
+    \[
+        \int _SfdS=\int_Df(x,y,z(x,y))\frac{|\nabla F|}{|F_z|}dxdy =\int_Df(x,y,z(x,y))\frac{|\nabla F|}{|F_x|}dydz =\int _Df(x,y,z(x,y))\frac{|\nabla F|}{|F_y|}dzdx  
+    \]
+    这里将其投影到三个平面上的具体形式都写了出来，进行具体计算时当然选择最容易计算的进行。
+
+    \item 曲面的定向，曲面 $S \subset \mathbb{R}^3$ 可定向(orientable)即能够以连续的方式指定每一个点的法向量，一个定向曲面是指定了单位法向量的可定向曲面。直观上来说，可定向是可以区分曲面的两侧的，不可定向的曲面例子有莫比乌斯带和克莱因瓶。
+
+    \item 第一类曲面积分的产生动机容易理解为计算变密度曲面的质量，自然现象中还有需要计算通过某个面的向量即所谓的通量，这时候被积函数是一个向量，积分微元也是一个向量，设 $S \subset \mathbb{R}^3$是定向曲面， $\mathbf{F}: S \to \mathbf{R}^3$是定义在 $S$ 上的向量场，$\mathbf{F}$在 $S$ 上的第二类曲面积分定义为
+    \[
+        \int_S\mathbf{F}\cdot d\mathbf{S}:=\int_S\mathbf{F}\cdot\mathbf{n}dS = \int _S \mathbf{F} \cdot d \mathbf{S}
+    \]
+    其中 $\mathbf{n}$ 是由 $S$ 定向所指定的单位法向量，后面一个是一个记号而已，稍微回顾通量的定义就会发现这就是通量定义的微积分表示。积分值与定向有关，所以
+    \[
+        \int_{-S}\mathbf{F}\cdot d\mathbf{S}=-\int_S\mathbf{F}\cdot d\mathbf{S}
+    \]
+    积分微元可以写成
+    \[
+        d\mathbf{S}=\mathbf{n}dS=(\cos\alpha,\cos\beta,\cos\gamma)dS=(\pm d\sigma_{yz},\pm d\sigma_{zx},\pm d\sigma_{xy})
+    \]
+    所以
+    \begin{align*}
+    \int_{S}\mathbf{F}\cdot d\mathbf{S}& =\int_{S}(P\cos\alpha+Q\cos\beta+R\cos\gamma)dS \\
+    &=\int_SPdydz+Qdzdx+Rdxdy \\
+    &=\int_{D_{yz}}Pdydz+\int_{D_{zx}}Qdzdx+\int_{D_{xy}}Rdxdy.
+    \end{align*}
+    这里后面两个等式只考虑了当 $\cos \theta _i$取正值也就是 $0 \le \alpha, \beta, \gamma \le \frac{\pi}{2} $的情况，如果它们的值是负值，要相应将加号变成减号。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 假设 $S$ 是球面 $x^2 + y^2 + z^2 =a^2$ 落在平面 $z = h(0 < h < a)$上方的部分，计算
+    $\int _S \frac{\mathrm{d}S}{z}$
+
+    \item 假设 $S$ 是由平面 $x=0, y=0, z=0$以及 $x+y+z=1$围成的四面体的表面，计算 $\int _S xyz \mathrm{d} S$
+
+    \item 计算 $\int _S xyz \mathrm{d} S$，其中 $S$ 是圆锥面 $z^2 = x^2 + y^2$位于平面 $z=1$和 $z=4$之间的部分。
+
+    \item 计算向量场 $\mathbf{F} = (-y, x, 9)$通过曲面 $S$ 的通量，其中 $S$为定向朝上的球冠，$z=\sqrt{9-x^2-y^2},\quad0\le x^2+y^2\le4$。
+
+    \item 计算 $\int_Sx^2dydz+y^2dzdx+z^2dxdy$，其中 $S$是三维立体 $\Omega = [0,a] \times [0,b] \times [0,c]$的表面，取外侧定向。
+
+    \item 计算 $\int _S xyz d x d y$，其中 $S$ 是球面 $x^2 + y^2 + z^2 = 1, x \ge 0, y \ge 0$取外侧定向。
+
+    \item 计算 $\int _S (z^2 + x)dx dy - z dxdy$，其中 $S$ 是旋转抛物面 $z = \frac{1}{2}(x^2 + y^2)$介于平面 $z=0$和 $z=2$的部分，定向取下侧。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第222页习题11-4第6题) 计算下列对面积的曲面积分
+        \begin{enumerate}[(1)]
+            \item $\int _\Sigma (z + 2x + \frac{4}{3}y) \mathrm{d} S$，其中 $\Sigma$为平面 $\frac{x}{2} + \frac{y}{3} + \frac{z}{4} =1$在第一卦限中的部分。
+    
+            \item $\int _\Sigma (2xy - 2x^2 -x + z) \mathrm{d}S$，其中 $\Sigma$ 为平面 $2x + 2y + z=6$在第一卦限中的部分。
+    
+            \item $\int _\Sigma (x+y+z) \mathrm{d}S$，其中 $\Sigma$ 为球面 $x^2 + y^2 + z^2=a^2$上 $z \ge h(0 < h < a)$的部分。
+    
+            \item $\int _\Sigma (xy + yz + zx)\mathrm{d}S$，其中 $\Sigma$为锥面 $z=\sqrt{x^2 + y^2}$被柱面 $x^2 + y^2 = 2ax$所截得的有限部分。
+        \end{enumerate}
+    
+    \item (教材第223页习题11-4第7题) 求抛物面壳 $z = \frac{1}{2}(x^2 + y^2)(0 \le z \le 1)$的质量，此壳的面密度为 $\mu =z$。
+    
+    \item (教材第231页习题11-5第3题) 计算下列对坐标的曲面积分：
+        \begin{enumerate}[(1)]
+            \item $\int _\Sigma x^2y^2z dxdy$，其中 $\Sigma$是球面 $x^2 + y^2 + z^2=R^2$的下半部分的下侧。
+            
+            \item $\int _\Sigma z dxdy + x dydz + y dzdx$，其中 $\Sigma$是柱面 $x^2 + y^2 =1$被平面 $z=0$及 $z=3$所截得的在第一卦限内的部分的前侧。
+    
+            \item $\int _\Sigma \left( f(x,y,z) + x\right) dydz + \left( 2f(x,y,z) +y \right) dzdx + \left( f(x,y,z) + z \right) dxdy$，其中 $f(x,y,z)$为连续函数，$\Sigma$是平面 $x-y+z=1$在第四卦限部分的上侧。
+    
+            \item $\int _\Sigma xz dydz + xydydz + yz dzdx$，其中 $\Sigma$是平面 $x=0,y=0,z=0,x+y+z=1$所围成的空间区域的整个边界曲面的外侧。
+        \end{enumerate}
+    
+    \item (教材第231页习题11-5第4题) 把对坐标的曲面积分
+    \[
+        \int _\Sigma P(x,y,z) dydz + Q(x,y,z) dzdx + R(x,y,z)dxdy
+    \]
+    化成对面积的曲面积分，其中
+        \begin{enumerate}[(1)]
+            \item $\Sigma$ 是平面 $3x + 2y + 2\sqrt{3}z=6$在第一卦限的部分的上侧。
+            \item $\Sigma$ 是抛物面 $z =8 - (x^2 + y^2)$在 $xOy$ 面上方的部分的上侧。
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{高斯公式和斯托克斯公式}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 高斯公式：假设三维闭区域 $\Omega \subset \mathbb{R}^3$ 的边界为分片光滑定向曲面 $S$ ，若 $\mathbf{F} = (P, Q, R) \in C^1(\Omega)$，则
+    \[
+        \iint_SPdydz+Qdzdx+Rdxdy=\iiint_\Omega\left(\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}\right)dxdydz
+    \]
+    引入散度的，称 $\nabla \cdot \mathbf{F}$为 $\mathbf{F}$ 的散度，上面的公式就可以写成
+    \[
+        \iint_S\mathbf{F}\cdot\mathbf{n}dS
+        = \int _S \mathbf{F}\cdot \mathrm{d} \mathbf{S}
+        =\iiint_\Omega\mathbf{div}\mathbf{F}dV = \iiint_\Omega \nabla \cdot  \mathbf{F}dV
+    \]
+    其中 $\mathbf{n}$是 $S$的单位外法向。高斯公式可以认为是格林公式（向量形式）在三维的推广。
+
+    \item 散度和高斯公式的物理意义。向量场 $\mathbf{F}$ 散度的定义如下
+    \[
+        \mathbf{div} \mathbf{F}(\mathbf{r}) = \lim _{V \to 0} \frac{\int _{S(V)} \mathbf{F} \cdot \mathrm{d} \mathbf{S}}{V}
+    \]
+    $V$是包含点 $\mathbf{r}$的一个小体积， $S(V)$是 $V$ 的表面积，取定坐标系可以将其定义式继续化简，最终得到 $\mathbf{div F} = \nabla \cdot \mathbf{F}$，从其定义式中可以看出其物理（几何）意义为向量场在某一点的通量密度，散度大于0对应该处是“源”，貌似有场从该处往外发出，小于0对应该处是“汇”，貌似场汇聚消失在该处，高斯公式的物理意义是向量场通过某个闭合曲面的通量等于该体积内通量密度的积分。在电磁学中计算电场的通量时对这个公式的理解会更加深入。这里取直角坐标系对上面的结论略微推导，感兴趣的同学可以细看，取点 $\mathbf{r} = (x,y,z)$被包括在小六面体 $[x - \frac{\Delta x}{2}, x+ \frac{\Delta x}{2}] \times [y - \frac{\Delta y}{2}, y+ \frac{\Delta y}{2}] \times [z - \frac{\Delta z}{2}, z+ \frac{\Delta z}{2}] $中，小六面体的体积为 $\Delta x \Delta y \Delta z$，场 $\mathbf{F} = (P(\mathbf{r}), Q(\mathbf{r}), R(\mathbf{r}))$，计算定义式中的积分项
+    \begin{align*}
+        \int _{S(V)} \mathbf{F} \cdot \mathrm{d} \mathbf{S}
+        =& \Delta x \Delta y (R + \frac{\partial R}{\partial x} \frac{\Delta x}{2} + \frac{\partial R}{\partial y} \frac{\Delta y}{2} + \frac{\partial R}{\partial z} \frac{\Delta z}{2} ) - \Delta x \Delta y (R + \frac{\partial R}{\partial x} \frac{\Delta x}{2} + \frac{\partial R}{\partial y} \frac{\Delta y}{2} - \frac{\partial R}{\partial z} \frac{\Delta z}{2} ) \\
+        +& \Delta y \Delta z \left( P + \nabla P \cdot (\frac{\Delta x}{2},\frac{\Delta y}{2}, \frac{\Delta z}{2} ) -  \Delta y \Delta z (P + \nabla P \cdot (-\frac{\Delta x}{2},\frac{\Delta y}{2}, \frac{\Delta z}{2} ) \right) \\
+        +& \Delta z \Delta x \left( P + \nabla P \cdot (\frac{\Delta x}{2},\frac{\Delta y}{2}, \frac{\Delta z}{2} ) -  \Delta z \Delta x (P + \nabla P \cdot (\frac{\Delta x}{2},-\frac{\Delta y}{2}, \frac{\Delta z}{2} ) \right) \\
+        =& \Delta x \Delta y \Delta z (\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z})
+    \end{align*}
+
+    \item 斯托克斯公式是将格林公式从 $\mathbb{R}^2$ 上的曲线推广到了 $\mathbb{R}^3$中的曲线，假设 $\mathbf{F}=(P,Q,R) \in C^1(S)$，则
+    \[
+        \oint_CPdx+Qdy+Rdz=\iint_S\left(\frac{\partial R}{\partial y}-\frac{\partial Q}{\partial z}\right)dydz+\left(\frac{\partial P}{\partial z}-\frac{\partial R}{\partial x}\right)dzdx+\left(\frac{\partial Q}{\partial x}-\frac{\partial P}{\partial y}\right)dxdy
+    \]
+    其中 $S \subset \mathbb{R}^3$ 是二维（只需要两个独立自由变量描述）光滑曲面，$C = \partial S$是曲面 $S$ 的边界，并且以右手定则指定 $C$的定向，即右手沿着 $C$的定向握拳时大拇指的方向为 $S$的法向量方向。如果 $S$是在一个平面上时 $(z=0)$，斯托克斯公式就退化成了格林公式。
+
+    \item 向量场 $\mathbf{F}$ 旋度的定义如下
+    \[
+        \mathbf{curl F} \cdot \hat{n} = \lim _{S \to 0} \frac{\oint _{l(S)} \mathbf{F} \cdot \mathrm{d} \mathbf{l}}{S}
+    \]
+    其中 $S$是一个趋于0的小面元，其法向(定向)为 $\hat{n}$，$l(S)$是以右手定则规定的绕 $S$的边界回路，选定坐标系后可以化简为
+    \[
+        \mathrm{curl}\boldsymbol{A}=\left(\frac{\partial A_{z}}{\partial y}-\frac{\partial A_{y}}{\partial z}\right)\boldsymbol{\hat{x}}+\left(\frac{\partial A_{x}}{\partial z}-\frac{\partial A_{z}}{\partial x}\right)\boldsymbol{\hat{y}}+\left(\frac{\partial A_{y}}{\partial x}-\frac{\partial A_{x}}{\partial y}\right)\boldsymbol{\hat{z}}
+        = \nabla \times \mathbf{F}
+    \]
+    记号 $\nabla \times \mathbf{F}$ 非常简练
+    \[
+    \left.\mathbf{curl F}:=\nabla\times\mathbf{F}=\left|\begin{array}{ccc}\mathbf{i}&\mathbf{j}&\mathbf{k}\\\partial_x&\partial_y&\partial_z\\P&Q&R\end{array}\right.\right|
+    \]
+    说散度是通量密度的话，旋度可以说是旋量（面）密度；散度可以考察某个点是“源”还是“汇”，旋度是考察某个点的旋转情况，在学习电磁学的过程中，应该会对旋度有更加深入的理解，在深入理解之前可以从形式上记住斯托克斯公式
+    \[
+        \oint _{l(S)} \mathbf{F} \cdot \mathrm{d} \mathbf{l} = \int _S \nabla \times \mathbf{F} \cdot \mathrm{d} \mathbf{S} = \int _S \nabla \times \mathbf{F} \cdot \hat{n} \mathrm{d} S
+    \]
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 计算 $\int _S (x-y) dx dy + (y-z)x dydz $，其中 $S$ 是圆柱面 $x^2 + y^2 =1$和平面 $z=0, z=3$所围成的边界曲面。
+
+    \item 计算 $\int _S (x^2\cos\alpha+y^2\cos\beta+z^2\cos\gamma)dS$，其中 $S$ 是圆锥面 $x^2 + y^2 =z^2$介于平面 $z=0$和 $z=h$的部分，$\cos \alpha, \cos \beta, \cos \gamma$是 $S$的朝下的法向量的方向余弦。
+    
+    \item 假设 $S$是三维闭区域 $\Omega \subset \mathbf{R}^3$的边界曲面，$\mathbf{n}$是其单位外法相，$u,v\in C^2(\Omega)$是定义在 $\Omega$上的函数，证明
+    \[
+        \int_\Omega u\Delta vdV=\int_Su\frac{\partial v}{\partial\mathbf{n}}dS-\int_\Omega\nabla u\cdot\nabla vdV
+    \]
+
+    \item 计算 $\oint _C zdx+xdy+ydz$，其中 $C$ 是平面 $x+y+z=1$与坐标平面相交所得三角形，从上方看取逆时针。
+
+    \item 假设 $\Omega \in \mathbb{R}^3$是一个单连通的三维区域，$\mathbf{F} = (P,Q,R) \in C^1(\Omega)$，证明 $\mathbf{F}$是保守场当且仅当 $\mathbf{curl F} = 0$ (提示：$\mathbf{F}$是保守场指存在势函数 $f$ 使得 $\mathbf{F} = \nabla f$，这等价于 $\int _C \mathbf{F} \cdot \mathrm{d} \mathbf{r}$与路径无关)。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第239页习题11-6第1题) 利用高斯公式计算曲面积分
+        \begin{enumerate}[(1)]
+            \item $\oint _\Sigma x^2dydz + y^2dzdx + z^2 dxdy$，其中 $\Sigma$ 为平面 $x=0,y=0,z=0,x=a,y=a,z=a$所围成的立体的表面的外侧。
+    
+            \item $\oint _\Sigma x^3 dydz + y^3 dzdx + z^3 dxdy$，其中 $\Sigma$ 为球面 $x^2 + y^2 + z^2 =a^2$的上半侧。
+    
+            \item $\oint xz^2 dydz + (x^2y - z^3)dzdx + (2xy + y^2z)dxdy$，其中 $\Sigma $为上半球体 $0 \le z \le \sqrt{a^2 -x^2 -y^2}$，$x^2 + y^2 \le a^2$的表面的外侧。
+    
+            \item $\oint xdydz + ydzdx + zdxdy$，其中 $\Sigma$是界于 $z=0$ 和 $z=3$ 之间的圆柱体 $x^2 + y^2 \le 9$的整个表面外侧。
+    
+            \item $\oint _\Sigma 4xzdydz - y^2dzdx + yz dxdy$，其中 $\Sigma$ 是平面 $x=0,y=0,z=0,x=1,y=1,z=1$所围成立方体的全表面外侧。
+        \end{enumerate}
+
+    \item (教材第240页习题11-6第5题) 利用高斯公式推证阿基米德原理：浸没在液体中的物体所受液体的压力和合力(即浮力)的方向铅直向上，其大小等于这物体所排开的液体的重力。
+
+    \item (教材第248页习题11-7第2题) 利用斯托克斯公式，计算下列曲线积分
+        \begin{enumerate}[(1)]
+            \item $\int _\Gamma y dx + zdy + xdz$，其中 $\Gamma$为圆周 $x^2 + y^2 + z^2 = a^2, x + y + z =0$，若从 $x$轴的正向看去，这圆周是取逆时针方向。
+    
+            \item $\oint _\Gamma (y-z)dx + (z-x)dy + (x-y)dz$，其中 $\Gamma$为椭圆 $x^2 + y^2 =a^2, \frac{x}{a} + \frac{z}{b} =1 (a>0, b>0)$，若从 $x$ 轴正向看去，这椭圆是取逆时针方向。
+    
+            \item $\oint _\Gamma 3ydx -xzdy + yz^2dz$，其中 $\Gamma$是圆周 $x^2 + y^2 =2z, z=2$，若从 $z$正向看去，这圆周是取逆时针方向。
+    
+            \item $\oint _\Gamma 2ydx + 3xdy -z^2dz$，其中 $\Gamma$ 是圆周 $x^2 + y^2 + z^2 =9,z=0$，若从 $z$正向看去，这圆周是取逆时针方向。
+        \end{enumerate}
+
+    \item (教材第249页习题11-7第7题) 设 $u = u(x,y,z)$具有二阶连续偏导数，求 $\mathbf{rot(grad )}u$
+\end{enumerate}

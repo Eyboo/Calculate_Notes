@@ -1,0 +1,212 @@
+\section{题目答案参考}
+\subsection{欧式空间与多元函数}
+\subsubsection{题目示例}
+\begin{enumerate}
+\item 求函数 $f(x)$ 在原点的极限
+$$
+f(x,y)=(x^2+y^2)\sin\frac1{x^2+y^2},\quad(x,y)\neq(0,0)
+$$
+解答：
+\begin{align*}
+    &\lim_{(x,y) \to (0,0)} f(x,y) = 0 \\
+    &\forall \varepsilon > 0 , \exists \delta = \sqrt{\varepsilon} , \text{s.t.} \forall 0<|\mathbf{x}-0|=\sqrt{(x-0)^2 + (y-0)^2}<\delta, |f(x,y)-0|\le |(x^2+y^2)|< \varepsilon
+\end{align*}
+
+
+\item 计算
+$$
+\lim_{(x,y)\to(0,2)}\frac{\sin(xy)}x
+$$
+解答：
+\begin{align*}
+     \lim_{(x,y)\to(0,2)}\frac{\sin(xy)}x = \lim_{(x,y)\to(0,2)}\frac{\sin(xy)}{xy} y = 2
+\end{align*}
+这个理解就好了，就不要太追求太严格的证明了。哈哈哈。
+
+\item 证明函数 $f(x)$ 在原点的极限不存在
+$$
+f(x,y)=\frac{xy}{x^2+y^2},\quad(x,y)\neq(0,0)
+$$
+解答
+\begin{align*}
+    \lim_{x\to 0} \lim_{y \to 0} f(x,y) = 0, \lim_{x \to 0}\lim_{y \to x} = \frac{1}{2}
+\end{align*}
+不同的累次极限不相等，所以在原点的极限（重极限）不存在。
+\end{enumerate}
+\subsubsection{习题参考}
+\begin{enumerate}
+\item 用数学语言写出下列概念的严格定义：内点、外点、边界点、孤立点、聚点、开集、闭集。
+解答：参照这一章节的知识概要，那里已经用数学语言写出来了，也就是用 $\varepsilon - \delta$语言写了，$\varepsilon - \delta$语言是个好语言，非常凝练，可以常常试着应用，非常精妙的（但是偶尔可能比较繁琐）。
+
+\item 找出集合 $S=\left\{\left(\frac1m,\frac1n\right)\in\mathbb{R}^2|m,n\in\mathbb{N}\right\}$ 的边界点和聚点。
+解答：在平面上画出这个点集的大概形状（除开有理数外还有大量的无理数），根据边界点的定义：任何一个邻域内，既有属于集合内的，又有不属于集合内的。故集合内所有点都是边界点，再关注以下特殊的点，容易判断，总的边界点是
+\begin{align*}
+    S \cup \left\{ (0,0), \left(\frac{1}{m},0 \right),\left(0, \frac{1}{n}\right) |m,n\in\mathbb{N} \right\}
+\end{align*}
+
+根据聚点的定义：在任何一个去心邻域内，一定有属于集合内的，所以聚点是
+\begin{align*}
+    \left\{ (0,0), \left(\frac{1}{m},0 \right),\left(0, \frac{1}{n}\right) |m,n\in\mathbb{N} \right\}
+\end{align*}
+
+\item 利用极限的定义证明 $m$ 维点列极限的以下性质：
+    \begin{enumerate}[(1)]
+    
+    \item $\lim _{n\to \infty} \mathbf{a}_n = \mathbf{A}$当且仅当点 $\mathbf{a}_n$的每个位置的分量构成的数列收敛到点 $\mathbf{A}$ 对应分量
+
+    解答：
+    \begin{align*}
+        & \lim _{n\to \infty} \mathbf{a}_n = \mathbf{A} \Leftrightarrow \forall \varepsilon>0,\exists N \in \mathbb{N},\text{ s.t. }|\mathbf{a}_n - \mathbf{A}|< \varepsilon, \forall n > N \\
+        & \text{对于任意一个分量，都有}  |a_i - A_i| \le |\mathbf{a}_n - \mathbf{A}| < \varepsilon 
+    \end{align*}
+    所以每个分量都收敛到对应的分量。
+    
+    \item 若$\lim _{n\to \infty} \mathbf{a}_n = \mathbf{A}$则$\{ \mathbf{a}_n \}$有界
+    解答：
+    \begin{align*}
+        & \lim _{n\to \infty} \mathbf{a}_n = \mathbf{A} \Leftrightarrow \forall \varepsilon>0,\exists N \in \mathbb{N},\text{ s.t. }|\mathbf{a}_n - \mathbf{A}|< \varepsilon, \forall n > N \\
+        & 1 \le n \le N, |\mathbf{a}_n| \le \max(\mathbf{a}_1, \mathbf{a}_2, \cdots, \mathbf{a}_n), \text{对于} n > N , \text{取} \varepsilon=1, \text{有} |\mathbf{a}_n| < |A|+1
+    \end{align*}
+    所以有界 $|\mathbf{a}_n| \ge \max(a_1, a_2, \cdots ,a_n, |\mathbf{A}|+1)$ 。上面用到了三角不等式，两边之和大于第三边 $|a|+|b|>|a \pm b|$，两边之差小于第三边 $|a|-|b| < |a \pm b|$。
+    
+    \item $\lim _{n\to \infty} \mathbf{a}_n \cdot \mathbf{b}_n = \lim _{n\to \infty} \mathbf{a}_n \cdot \lim _{n\to \infty} \mathbf{b}_n $
+    解答：
+    根据证明1，每个位置的分量收敛到对应的分量，再由于一元微积分证明的 $\lim_{n\to \infty} (x_n y_n) = \lim_{n\to \infty} x_n \lim_{n\to \infty} y_n  $得证。
+    \end{enumerate}
+
+\end{enumerate}
+
+\subsection{偏微分}
+\subsubsection{题目示例}
+\begin{enumerate}
+\item 曲面$z=f(x,y)=\sqrt{9-2x^2-y^2}$与平面$y=1$交于一条曲线$\gamma.$试求曲线
+$\gamma$在$(\sqrt2,1,2)$点的切线。
+解答：
+\begin{equation*}
+\left. \frac{\partial f}{\partial x}  \right|_{x_0}  = \frac{-2x}{\sqrt{9-2x^2-y^2}} = - \sqrt{2}
+\end{equation*}
+所以切线方程是
+\begin{equation*}
+    z-2 = -\sqrt{2}(x-\sqrt{2}), y=1
+\end{equation*}
+
+
+\item 求函数 $f(x)$ 在 $(0,0)$的偏导数
+$$
+f(x,y)=\begin{cases}\frac{xy}{x^2+y^2},&(x,y)\neq(0,0)\\0,&(x,y)=(0,0) \end{cases}
+$$
+解答：
+\begin{align*}
+    \frac{\partial f }{\partial x} = \frac{y^3 - x^2y}{(x^2+y^2)^2} \quad
+    \frac{\partial f }{\partial y} = \frac{x^3 - y^2x}{(x^2+y^2)^2}
+\end{align*}
+
+\end{enumerate}
+\subsubsection{习题参考}
+\begin{enumerate}
+\item 证明函数
+$$
+u(x)=\frac1{|x|}:\mathbb{R}^3\setminus\{0\}\to\mathbb{R}
+$$
+满足方程 $\Delta u $是我们新认识的一个记号。（求模的 $x$应该粗写，但是从上下文看不会造成歧义，所以没有粗写，我们之前已经做过约定）
+$$
+\Delta u=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}=0.
+$$
+解答：$u(x) = \frac{1}{\sqrt{x^2 + y^2 + z^2}}$
+\begin{equation*}
+    \frac{\partial^2 u}{\partial x^2} = \frac{\partial }{\partial x} \frac{\partial u}{\partial x} = \frac{\partial }{\partial x} \frac{-x}{(x^2 + y ^2 + z ^2)^{\frac{3}{2}}} = \frac{2x^2-y^2-z^2 }{(x^2+y^2+z^2)^\frac{5}{2}}
+\end{equation*}
+同理容易求出另外两个偏导数，加在一起等于0.
+
+\item 设 $e_i$是沿 $x_i$ 方向的单位向量，证明 $f$ 在 $x$ 点对 $x_i$ 的偏导数存在的充要条件是： $f$ 在 $x$ 点沿 $e_i$ 和 $-e_i$ 的方向导数存在且互为相反数。
+
+证明：先证明必要条件， $f$ 在 $x$ 点 对$x_i$ 的偏导数存在，即下面这个极限存在，我们将其记为 $A$
+\begin{equation*}
+    \lim _{\Delta t \to 0} \frac{f(\cdots, x_i + \Delta t,\cdots)-f(x)}{\Delta t} = A, \quad f(\cdots, x_i + \Delta t,\cdots) = f(x) + A \Delta t
+\end{equation*}
+从而，根据方向导数的定义
+\begin{equation*}
+   \frac{\partial f}{\partial (e_i)} = \lim _{\Delta t \to 0 ^+ } \frac{f(\cdots, x_i + \Delta t,\cdots)-f(x)}{\Delta t} =\lim _{\Delta t \to 0^+} \frac{A \Delta t}{\Delta t} =  A
+\end{equation*}
+而另外一个偏导数
+\begin{equation*}
+    \frac{\partial f}{\partial (-e_i)} = \lim _{\Delta t \to 0 ^+ } \frac{f(\cdots, x_i +( - \Delta t),\cdots)-f(x)}{\Delta t} = \lim _{\Delta t \to 0^+} \frac{-A \Delta t}{\Delta t} = -A
+\end{equation*}
+所以，$f$ 在 $x$ 点沿 $e_i$ 和 $-e_i$的方向导数存在且互为相反数。再看充分条件，即如下极限存在，我们假设为 $A$ 和 $B$
+\begin{align*}
+    \lim _{\Delta t \to 0 ^+ } \frac{f(\cdots, x_i +\Delta t,\cdots)-f(x)}{\Delta t} = A, \quad f(\cdots,x_i+\Delta t , \cdots) = f(x) + A \Delta t , \Delta t \to 0^+ \\
+    \lim _{\Delta t \to 0 ^+ } \frac{f(\cdots, x_i +(- \Delta t),\cdots)-f(x)}{\Delta t} = B , \quad  f(\cdots,x_i+\Delta t , \cdots) = f(x) + B \Delta t , \Delta t \to 0^-
+\end{align*}
+如果 $A$ 和 $B$ 互为相反数，则有
+\begin{equation*}
+    f(\cdots,x_i+\Delta t , \cdots) = f(x) + A \Delta t
+\end{equation*}
+从而 $f$ 在点 $x$ 对 $x_i$ 的偏导数存在。（这道题有点在考偏导数，方向导数的定义和概念，会用数学语言表达这些概念，做起来会容易一些）
+
+\item (教材第71页习题9-2第1题) 求下列函数的偏导数
+\begin{align*}
+(1). z &= x^3y-y^3x  & (2). s &= \frac{u^2+v^2}{u v} \\
+(3). z &= \sqrt{\ln(x y)} &   (4). z &= \sin(x y)  + \cos ^2(x y) \\
+(5). z &= \ln(\tan(\frac{x}{y})) & (6). z &= (1+x y)^y \\
+(7). u &= x^{\frac{y}{z}} & 8. u &= \arctan (x-y)^z 
+\end{align*}
+解：(求偏导的时候就是将不是求导的变量看成常数)
+\begin{align*}
+    (1). \frac{\partial z }{\partial x} = 3x^2y - y^3, & \frac{\partial z }{\partial y} = x^3 - 3y^2 x \\
+    (2). \frac{\partial s}{\partial u} = &  \frac{\partial s}{\partial w} \\
+    (3). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} \\
+    (4). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} \\
+    (5). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} \\
+    (6). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} \\
+    (7). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y} \\
+    (8). \frac{\partial z}{\partial x} & \frac{\partial z}{\partial y}
+\end{align*}
+
+
+\item (教材第71页习题9-2第5题)曲线 $L$ 在点 $(2,4,5)$ 处的对于 $x$ 轴的倾角为多少？
+$$
+L: \left\{\begin{matrix}
+z = \frac{x^2+y^2}{4}\\
+y = 4
+\end{matrix}\right.
+$$
+解：根据题意和偏导数的意义，求偏导数
+\begin{equation*}
+    \frac{\partial z}{\partial x} = \frac{1}{2} x
+\end{equation*}
+代入 $(2,4,5)$ 得到 $ \left. \frac{\partial z}{\partial x} \right|_{x=2} = 1$，写出切线方程
+\begin{equation*}
+    z = x + 3
+\end{equation*}
+所以对 $x$ 轴的倾角为 $45 ^ \circ$。
+
+\item (教材第71页习题9-2第7题)设 $f(x,y,z) = x y^2+y z^2+z x^2$，求 $f_{xx}(0,0,1)$, $f_{xz}(1,0,2)$, $f_{yz}(0,-1,0)$, $f_{zzx}(2,0,1)$
+
+解：还是一道求偏导的题目，直接求偏导并代入对应的值即可
+\begin{align*}
+    f_{xx} = 2z , \quad f_{xx}(0,0,1) = 0 \\
+    f_{xz} = 2x , \quad f_{xz}(1,0,2) = 2 \\
+    f_{yz} = 2z , \quad f_{yz}(0,-1,0) = 0 \\
+    f_{zzx} = 0 , \quad f_{zzx}(2,0,1) = 0
+\end{align*}
+\end{enumerate}
+
+\subsection{全微分}
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item 证明函数 $u(x)=|x|:\mathbb{R} ^n \to \mathbb{R}$满足
+    $$
+    |\nabla u(x) | = 1, \forall x \in \mathbb{R}^n
+    $$
+    解：根据偏导的定义
+    
+    \item (教材第77页习题9-3第1题)求下列函数的全微分
+    \begin{align*}
+    (1). z & = x y + \frac{x}{y}; &  (2). z &= \mathrm{e}^{\frac{y}{x}}; \\
+    (3). z &= \frac{y}{x^2 + y^2}; & (4). u & = x^{yz}
+    \end{align*}
+    
+    \item (教材第77页习题9-3第2题)求函数 $z = \ln (1+x^2 + y^2)$当 $x=1,y=2$时的全微分。
+    
+    \item (教材第77页习题9-3第3题)求函数 $z = \frac{y}{x}$当 $x=2,y=1, \Delta x = 0.1, \Delta y = -0.2$时的全增量和全微分。
+\end{enumerate}

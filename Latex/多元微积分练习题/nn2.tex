@@ -1,0 +1,386 @@
+\section{多元函数积分}
+\subsection{重积分}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 一元函数的定积分：一元函数的定积分是在求曲边梯形的面积，通过分割，近似，求和，取极限完成，当求取的极限存在并且与分割方式无关时，称为函数 $f(x)$ 在闭区间 $[a, b]$ 上可积，并把求到的极限称为 $f(x)$ 从 $a$ 到 $b$ 的定积分，记作
+    $$
+    \int_a^bf(x)dx:=\lim_{\delta\to0}\sum f(\xi_i)\Delta x_i
+    $$
+    定积分的求取过程是一个求极限的过程，我们可能因为在实际求定积分的过程中大量使用牛顿莱布尼茨公式而忽略定积分的定义。
+
+    \item 将一元的定积分推广到一个闭区间 $ D \subset \mathbb{R}^n$上的多元函数 ，如果是 $n=2$，则几何含义是计算曲面与坐标平面所围成的立体的体积，如果 $D$ 是一个矩形，很容易想到将其分割成若干个小矩形从而计算其体。对于一般区域 $D$，并没有标准的分割方式。此时的解决方案有两种，一种是把函数延拓到更大的矩形区域上，另一种是研究更一般的分割方式，选出可求面积的所谓“可测区域”，当 $D$的边界是分段光滑的曲线组成时，是可测的，两种方案得到的积分值是相同的。
+
+    \item  重积分的定义：像一元积分一样，进行分割、近似、求和、取极限四个步骤，将可测的区域分割成互不相交的可测小区域(分割)
+    $$
+    D=\Delta\sigma_1\cup\Delta\sigma_2\cup\cdots\cup\Delta\sigma_n
+    $$
+    选定 $\xi _i \in \sigma_i$并计算每一块的体积近似值(近似)
+    $$
+    s_i\approx s'_i=f(\xi_i)\cdot|\Delta\sigma_i|, i=1,2,\cdots,n
+    $$
+    将所有小的体积加起来(求和)
+    $$
+    S_n=\sum_{i=1}^n s_i'
+    $$
+    考察 $ \delta=\max\{|(\Delta\sigma_i)|\}\to 0 $ 极限的存在性，并求出极限(取极限)
+    $$
+    S=\lim_{\delta\to0}S_n=\lim_{\delta\to0}\sum_{i=1}^ns_i'
+    $$
+    当极限存在并且与分割近似的取法无关时，称为 $f(x)$在区域 $D$上可积，该极限称为函数 $f(x)$ 在区域 $D$ 上的重积分，记为
+    $$
+    \int_Df(x)d\sigma:=\lim_{\delta\to0}\sum f(\xi_i)|\Delta\sigma_i|
+    $$
+    如果 $f$ 是可测有界闭区域 $D$ 上的连续函数，则 $f$ 在 $D$ 上可积。
+
+    \item 重积分的性质，类似一元定积分，有如下容易理解的性质，假设函数 $f$ 和 $g$ 在区域 $D$ 上可积，
+    \begin{align*}
+    &\int_D1dx=m(D) \\
+    &\text{If}D=D_1\amalg D_2,\text{then}\int_Df(x)dx=\int_{D_1}f(x)dx+\int_{D_2}f(x)dx \\
+    &\forall a,b\in\mathbb{R}, \int_D[af(x)+bg(x)]dx=a\int_Df(x)dx+b\int_Dg(x)dx \\
+    &\text{If}f(x)\leq g(x),\forall x\in D,\text{then}\int_Df(x)dx\leq\int_Dg(x)dx \\
+    &\left|\int_Df(x)dx\right|\leq\int_D|f(x)|dx \\
+    & \int_Df(x)dx=f(\xi)\cdot m(D), \xi \in D
+    \end{align*}
+    最后一个式子是重积分的积分中值定理，在一元定积分中也有对应。
+\end{enumerate}
+% \subsubsection{题目示例}
+% \subsubsection{习题参考}
+
+\subsection{重积分的计算}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 矩形区域的重积分：假设 $D=[a,b]\times[c,d]\subset\mathbb{R}^2$是一个二维矩形区域，并且函数 $f: D \to \mathbb{R} $连续，则
+    $$
+    \int\int_Df(x,y)\mathrm{d}x\mathrm{d}y=\int_a^b\int_c^df(x,y)dydx=\int_c^d\int_a^bf(x,y)\mathrm{d}x\mathrm{d}y
+    $$
+    后面两个式子称为累次积分，中间一个式子先积分 $c$ 到 $d$再积分 $a$到 $b$，这可以理解成先固定一个 $x$ 将对应的 $y$的值积分一边（扫一遍），然后再扫一遍 $x$ 对应的区域即积分 $a$到 $b$这样就实现了遍历整个矩形；最后一个式子则是反过来，先扫一遍 $x$然后再扫 $y$。
+
+    \item 有了上面对累次积分次序的理解，有助于对一般情况的理解，即如果区域 $D$ 容易写成
+    $$
+    D=\{(x,y)\in\mathbb{R}^2|\phi_1(x)\leq y\leq\phi_2(x),a\leq x\leq b\}
+    $$
+    则先扫一遍 $y$ 再扫一遍 $x$ 即可，也就是计算如下的累次积分
+    $$
+    \iint_Df=\iint_R\bar{f}=\int_a^bdx\int_c^d\bar{f}(x,y)dy=\int_a^bdx\int_{\phi_1(x)}^{\phi_2(x)}f(x,y)dy
+    $$
+    如果积分区域 $D$ 容易写成形如
+    $$
+    D=\{(x,y)\in\mathbb{R}^2|\psi_1(y)\leq x\leq\psi_2(y),c\leq y\leq d\}
+    $$
+    则先扫一遍 $x$再扫一遍 $y$，也就是计算如下的累次积分
+    $$
+    \iint_Df(x,y)\mathrm{d}x\mathrm{d}y=\int_c^ddy\int_{\psi_1(y)}^{\psi_2(y)}f(x,y)dx
+    $$
+    更一般的区域常常可以划分为以上两种分割模式的组合。
+
+    \item 对于三重积分，也就是一个三维区域 $\Omega \subset \mathbb{R}^3$的定积分，其定义与重积分类似，其物理意义可以想象成知道物体密度的函数 $f(x,y,z)$和描述物体边界的方程，然后求其体积。求它的体积显然可以想到两种分割方法，一种是切成很多薄片，然后串起来，另外一种是劈成很多条然后捆起来。方法一对应的 $\Omega$ 形式为
+    $$
+    \Omega=\{(x,y,z)\in\mathbb{R}^3|(x,y)\in D_z,a\leq z\leq b\}
+    $$
+    对应化成积分如下，其中先进行一个重积分就是在求一个薄片，再求一个一元积分就是将薄片串起来，
+    $$
+    \iiint_\Omega f(x,y,z)=\int_a^b\left(\iint_{D_z}f(x,y,z)\mathrm{d}x\mathrm{d}y\right)dz
+    $$
+    方法二对应的 $\Omega$ 形式为
+    $$
+    \Omega=\{(x,y,z)\in\mathbb{R}^3|\phi_1(z,y)\leq z\leq\phi_2(x,y),(x,y)\in D\}
+    $$
+    对应化成的积分如下，其中先进行的一个一元积分就是在求一小条，再求一个重积分就是将若干个小条捆起来，
+    $$
+    \iiint_\Omega f(x,y,z)=\iint_D\left(\int_{\phi_1(x,y)}^{\phi_2(x,y)}f(x,y,z)dz\right)\mathrm{d}x\mathrm{d}y
+    $$
+    这两种都要求某个重积分，使用前面已经讨论过的重积分的计算方法即可。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 计算累次积分
+    \begin{align*}
+        (1) \int_3^5dx\int_{-x}^{x^2}(4x+10y)dy \quad & (2) \int_0^1dy\int_0^{y^2}2ye^xdx
+    \end{align*}
+
+    \item 计算图形面积
+        \begin{enumerate}[(1)]
+             \item 平面 $3x + 6y + 4z -12=0$与坐标平面所围城的四面体。
+             \item 由旋转抛物面 $z = x^2 + y^2$，圆柱面 $x^2 + y^2 =4$和坐标平面在第一卦限所围成的立体。
+         \end{enumerate}
+
+    \item 计算函数 $f(x,y,z)=2xyz$在由抛物柱面 $z=2-x^2/2$和平面 $z=0, y=x$以及 $y=0$ 在第一卦限所围立体 $\Omega$ 上的三重积分。
+
+    \item 设 $\Omega$ 是由平面 $x+2y+z=1$ 在第一卦限所围的区域，计算 $\int _ \Omega x d \sigma$。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第157页习题10-2第2题)画出积分区域，并计算下列二重积分
+    \begin{enumerate}[(1)]
+        \item $\int _D x \sqrt{y} \mathrm{d} \sigma$，其中 $D$ 是由两条抛物线 $y=\sqrt{x}, y =x^2$所围成的闭区域。
+        \item $\int _D xy^2 \mathrm{d} \sigma$，其中 $D$ 是由圆周 $x^2 + y^2=4$及 $y$ 轴所围成的右半闭区域。
+        \item $\int _D \mathrm{e}^{x+y} \mathrm{d} \sigma$，其中 $D = \{ (x,y)||x|+|y| \le 1 \}$。
+        \item $\int _D (x^2 + y^2 -x) \mathrm{d} \sigma$，其中 $D$ 是由直线 $y=2, y=x$及 $y=2x$所围成的闭区域。
+    \end{enumerate}
+
+    \item (教材第157页习题10-2第3题)如果二重积分 $\int _D f(x,y) dxdy$的被积函数 $f(x,y)$ 是两个函数 $f_1(x,y), f_2(x,y)$的乘积，即 $f(x,y) = f_1(x) \cdot f_2(y)$，积分区域 $D = \{ (x,y) | a \le x \le b, c \le y \le d \}$，证明这个二重积分等于两个单积分的乘积，即
+    \[
+        \int _D f_1(x) \cdot f_2 (y) = \left[ \int _a^b f_1(x) \mathrm{d} x \right] \cdot \left[ \int _a ^d f_2(y) \mathrm{d} y \right]
+    \]
+
+    \item (教材第157页习题10-2第6题奇数小题)改换下列二次积分的积分次序：
+    \begin{enumerate}[(1)]
+        \item $\int _0^1 \mathrm{d} y \int _0 ^y f(x,y) \mathrm{d} x$
+        \item $\int _0^1 \mathrm{d} y \int _{-\sqrt{1-y^2}}^{\sqrt{1-y^2}} f(x,y) \mathrm{d} x$
+        \item $\int _1^\mathrm{e} \mathrm{d} x \int _0 ^{\ln x} f(x,y) \mathrm{d}y$
+    \end{enumerate}
+
+    \item (教材第157页习题10-2第7题)设平面薄片所占的闭区域 $D$ 由直线 $x+y=2, y=x$ 和 $x$ 轴所围成的，它的面密度 $\mu (x,y) = x^2 + y^2$，求该薄片的质量。
+
+    \item (教材第158页习题10-2第10题)求曲面 $z=x^2 + 2y^2$及 $z=6-2x^2-y^2$所围成的立体的体积。
+
+    \item (教材第166页习题10-3第1题)化三重积分 $I = \int _\Omega f(x,y,z) dxdydz$为三次积分，其中积分区域 $\Omega$分别是
+        \begin{enumerate}[(1)]
+            \item 由双曲抛物面 $xy=z$ 及平面 $x+y-1=0, z=0$所围成的闭区域；
+            \item 由曲面 $z=x^2+y^2$ 及平面 $z=1$ 所围成的闭区域；
+            \item 由曲面 $z= x^2 + 2y^2$及 $z=2-x^2$ 所围成的闭区域；
+            \item 由曲面 $cz = xy (c>0), \frac{x^2}{a^2} + \frac{y^2}{b^2}=1, z=0$所围成的在第一卦限内的闭区域。
+        \end{enumerate}
+
+    \item (教材第166页习题10-3第2题)设有一物体，占有空间闭区域 $\Omega = \{ (x,y,z) | 0 \le x \le 1, 0 \le y \le 1, 0 \le z \le 1  \}$，在点 $(x,y,z)$处的密度为 $\rho (x,y,z) = x+y+z$，计算该物体的质量。
+
+    \item (教材第167页习题10-3第4题)计算 $\int _\Omega xy^2z^3 dxdydz$，其中 $\Omega$是由曲面 $z=xy$与平面 $y=x,x=1$和 $z=0$ 所围成的闭区域。
+\end{enumerate}
+
+\subsection{极坐标下的重积分}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 在前面求二重积分时，我们从矩形的积分区域出发进行讨论，因为我们使用的是直角坐标系，如果换成极坐标呢？此时我们如何分割？一个类比的分割方法是依然利用坐标曲线进行分割，这时分割出的一个小块是一个拥有弧状边的梯形，计算这个微元的面积如下
+    $$
+    \Delta\sigma=\frac12(r+\Delta r)^2\Delta\theta-\frac12r^2\Delta\theta=r\Delta r\Delta\theta+\frac12\Delta r^2\Delta\theta
+    $$
+    最后一项相对于前面一项是高阶无穷小，可以省略，所以主要部分就是 $\mathrm{d} \sigma = r \mathrm{d}r \mathrm{d} \theta $，所以对于极坐标积分即可写成
+    $$
+    \int _D f(r, \theta) \mathrm{d} \sigma = \int _D f(r, \theta) r \mathrm{d}r \mathrm{d} \theta
+    $$
+    可以类比想到，积分区域边界的形状不同时，转化成累次积分的顺序可以不同来简便计算，对于积分区域如 $D=\{(r,\theta)|\phi_1(\theta)\leq r\leq\phi_2(\theta),\alpha\leq\theta\leq\beta\}$，可以先沿着径向积分(径向积分出一条线)，然后再积分角度(线动扫出整个积分区域)，即
+    $$
+    \int_Dfd\sigma=\int_\alpha^\beta d\theta\int_{\phi_1(\theta)}^{\phi_2(\theta)}f(r,\theta)rdr
+    $$
+    对于 $D=\{(r,\theta)|\psi_{1}(r)\leq\theta\leq\psi_{2}(r),a\leq r\leq b\}$ 可以先积分角度(积分出一个弧形)，再沿着径向积分，即
+    $$
+    \iint_Dfd\sigma=\int_a^bdr\int_{\phi_1(r)}^{\psi_2(r)}f(r,\theta)rd\theta
+    $$
+
+    \item 对于柱坐标系，其坐标由参数$(r, \theta, z)$标识，有了极坐标下积分微元的表示，很容易写出柱坐标下的体积微元
+    $$
+    \mathrm{d} V = \mathrm{d} \sigma \cdot \mathrm{d} z = r \mathrm{d} r \mathrm{d} \theta \mathrm{d} z
+    $$
+    类似上面已经讨论过三重积分，对于不同形状的区域，我们依然可以采用将若干个薄片串起来或者将若干细条捆起来的积分次序进行柱坐标下的三重积分。
+
+    \item 如何求取球坐标系的体积微元呢？可以先尝试画出球坐标系下的体积微元，然后进行计算，球坐标系下的坐标标记为 $(\rho, \theta, \phi)$，其与直角坐标系的转换关系为
+    $$
+    x=\rho\sin\phi\cos\theta,y=\rho\sin\phi\sin\theta,z=\rho\cos\phi
+    $$
+    如果画出（或者想象出）球坐标系下的体积微元，其是一个带有球面的长方体，三条边的长度分别为 $\rho \sin \phi \mathrm{d} \theta, \rho \mathrm{d} \phi, \mathrm{d} \rho$，故体积微元为
+    $$
+    \mathrm{d} V = \rho^2 \sin \phi \mathrm{d} \rho \mathrm{d} \theta \mathrm{d} \phi
+    $$
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 设 $D$ 是第一象限中位于圆 $r=2$的外部，心形线 $r=2(1+ \cos \theta)$的内部的区域，计算
+    $\int _D y \mathrm{d} \theta$。
+
+    \item 求抛物面 $z = x^2 + y^2$，圆柱面 $x^2 + y^2 = 2y$ 和 $xy$ 坐标平面所围立体的体积。
+
+    \item 计算高斯积分 $\int _0 ^{\infty} \mathrm{e}^{-x^2} \mathrm{d} x$。
+
+    \item 求第一卦限中由抛物面 $z = 4 - x^2 -y^2$和圆柱面 $x^2+ y^2=2x$所围成三维立体体积。
+
+    \item 计算由球面 $\rho = a$和圆锥面 $\phi = \alpha $所围成的三维立体的体积。
+
+    \item 设 $\Omega$ 是抛物面 $z = x^2 + y^2 $和平面 $z=4$ 所围立体，计算 $\int _D z \mathrm{d} x \mathrm{d} y \mathrm{d} z$。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第158页习题10-2第13题)把下列积分化为极坐标形式，并计算积分值
+        \begin{enumerate}[(1)]
+            \item $\int _0 ^2a \mathrm{d} x \int _0^{\sqrt{2ax-x^2}} (x^2+y^2) \mathrm{d}y $
+            \item $\int _0 ^a \mathrm{d} x \int _0^x \sqrt{x^2 + y^2} \mathrm{d}y$
+            \item $\int _0^1 \mathrm{d} x \int _{x^2}^x (x^2 + y^2)^{-\frac{1}{2}} \mathrm{d}y  $
+            \item $\int _0 ^a \mathrm{d}y \int _0 ^{\sqrt{a^2 -y^2}} (x^2 + y^2) \mathrm{d}x$
+        \end{enumerate}
+
+    \item (教材第158页习题10-2第15题)选用适当的坐标系计算下列各题：
+        \begin{enumerate}[(1)]
+            \item $\int _D \frac{x^2}{y^2} \mathrm{d}\sigma$，其中 $D$ 是由直线 $x=2,y=x$及曲线 $xy=1$ 所围成的闭区域。
+            \item $\int _D \sqrt{\frac{1-x^2-y^2}{1+x^2+y^2}} \mathrm{d}\sigma$，其中 $D$ 是由圆周 $x^2+y^2=1$ 及坐标轴所围成的第一象限内的闭区域。
+            \item $\int _D (x^2 + y^2) \mathrm{d} \sigma$，其中 $D$ 是由直线 $y=x, y=x+a, y=a, y=3a(a>0)$所围成的闭区域。
+            \item $\int _D \sqrt{x^2 +y^2} \mathrm{d} \sigma$，其中 $D$ 是环形闭区域 $\{ (x,y) | a^2 \le x^2 + y^2 \le b^2\}$
+        \end{enumerate}
+
+    \item (教材第158页习题10-2第17题) 求由平面 $y=0,y=kx(k>0),z=0$以及球心在原点、半径为 $R$ 的上半球面所围成的在第一卦限内的立体的体积。
+
+    \item (教材第167页习题10-3第6题) 计算 $\int _\Omega xyz dx dy dz$，其中 $\Omega$ 为球面 $x^2 + y^2 +z^2 =1$及三个坐标面所围成的在第一卦限内的闭区域。
+
+    \item (教材第167页习题10-3第8题) 计算 $\int _\Omega z dx dy dz$，其中 $\Omega$ 是由锥面 $z = \frac{h}{R} \sqrt{x^2 + y^2}$与平面 $z=h (R>0, h>0)$所围成的闭区域。
+
+    \item (教材第167页习题10-3第11题) 选用适当的坐标计算下列三重积分
+        \begin{enumerate}[(1)]
+            \item $\int _\Omega xy \mathrm{d}V$，其中 $\Omega$ 为柱面 $x^2 + y^2=1$及平面 $z=1,z=0,x=0,y=0$所围成的在第一卦限内的闭区域。
+            \item $\int _\Omega \sqrt{x^2 + y^2 + z^2} \mathrm{d} V$，其中 $\Omega$是由球面 $x^2+y^2+z^2=z$所围成的闭区域。
+            \item $\int _\Omega(x^2 +y^2) \mathrm{d}V$，其中 $\Omega$是由曲面 $4z^2=25(x^2+y^2)$及平面 $z=5$所围成的闭区域。
+            \item $\int _\Omega (x^2 + y^2) \mathrm{d} V$，其中闭区域 $\Omega$ 由不等式 $0 < a \le \sqrt{x^2 + y^2 + z^2} \le A, z \ge 0$所确定。
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{重积分的变量替换}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 对于一个一元积分 $\int f(x) \mathrm{d} x$，可以令 $x = g(t)$ 进行变量替换，将原来的积分转换为
+    $$
+    \int f(x) \mathrm{d} x = \int f(g(t)) \mathrm{d} g(t) = \int f(g(t)) g'(t) \mathrm{d} t
+    $$
+    这里我们显然需要 $g(t)$ 是可导的，并且 $g'(t) \neq 0$。
+
+    \item 如何把上面的结论推广到多元积分呢？考虑多元积分 $\int f(x) \mathrm{d} \sigma$，这时候 $x$ 是一个向量，应该要找同样维度的向量（同样多的变量）来进行变量替换，也就是说要找一个与 $x$维度相同的向量 $t$，并构造函数 $x = g(t)$，那 $\mathrm{d} \sigma $怎么解决，也就是积分微元如何解决？类比一元的情形，$\mathrm{d} x = g'(t) \mathrm{d} t $，这就是 $x = g(t)$ 这个函数的微分啊，多元积分时也直接将积分微元换成微分是不是就行了？实际上确实如此，但是假设 $x$ 是 $n$ 维向量，则$t$也是一个 $n$维向量，函数 $x = g(t)$是一个 $\mathbb{R}^n \to \mathbb{R}^n $的映射，$\mathrm{D} x = A_{n \times n} \mathrm{D}t$，这个$A$是一个矩阵（雅可比矩阵，Jacobian matrix应该标记为 $J$），在计算积分时，取其行列式即可（二阶行列式的几何意义是平行四边形面积，三阶行列式是平行六面体的体积，这里也取行列式，有什么思考？），这里我们没有严谨地证明，从形式上（或许不严谨地）从一元积分换元类比推导出了多元微积分的换元
+    $$
+    \int _D f(x) \mathrm{d} x = \int _U f(g(t)) \cdot |J_g(t)| \mathrm{d}t
+    $$
+    上面依然沿用了一元积分的记号，而且没有加粗，但是从上下文来看不会引起歧义，其中 $J_g(t)$表示多元向量值函数$x = g(t)$的雅可比矩阵（说雅可比矩阵确实值得纪念雅可比，但是也可以想成就是求导）， $|J_g(t)|$表示雅可比矩阵对应的行列式。
+    $$
+    J_g(t) =\frac{\partial(x_1,\cdots,x_n)}{\partial(t_1,\cdots,t_n)}
+    $$
+    $J_g(t)$的行列式不能为0(回想线性代数中相关的概念，这是对从 $\mathrm{d} t$到 $\mathrm{d} x$的映射做了什么要求)。
+
+    \item 从积分换元的角度看极坐标和球坐标下的积分，顺便练习一下重积分的换元。考虑直角坐标系到极坐标的换元，即 $x = r \cos \theta, y = r \sin \theta$，这里 $J_g$即为
+    $$
+    \frac{\partial (x, y)}{\partial (r, \theta)} =
+    \begin{bmatrix}
+    \frac{\partial x}{\partial r}  & \frac{\partial x}{\partial \theta }  \\
+    \frac{\partial x}{\partial r}  & \frac{\partial x}{\partial \theta }  
+    \end{bmatrix}
+    = 
+    \begin{bmatrix}
+    \cos \theta  & -r \sin  \theta \\
+    \sin \theta  & r \cos \theta
+    \end{bmatrix}
+    $$
+    所以将直角坐标系的重积分换为极坐标系的重积分即为
+    $$
+    \int _D f(x,y) \mathrm{d}x \mathrm{d} y = \int _U f(r\cos \theta, r\sin \theta) \begin{vmatrix}
+    \cos \theta  & -r \sin  \theta \\
+    \sin \theta  & r \cos \theta
+    \end{vmatrix} 
+    \mathrm{d} r \mathrm{d} \theta = \int _U f(r\cos \theta, r\sin \theta) r \mathrm{d} r \mathrm{d} \theta
+    $$
+    和之前得到的结果是一样的，同理将直角坐标系换为球坐标系时，写出其导数(雅可比矩阵)的行列式
+    $$
+    \left| \frac{\partial(x,y,z)}{\partial(\rho,\theta,\phi)} \right|=\left|\begin{array}{ccc}\cos\theta\sin\phi&-\rho\sin\theta\sin\phi&\rho\cos\theta\cos\phi\\\sin\theta\sin\phi&\rho\cos\theta\sin\phi&\rho\sin\theta\cos\phi\\\cos\phi&0&-\rho\sin\phi\end{array}\right|=-\rho^2\sin\phi,
+    $$
+
+    \item 在上面我们提到说二阶行列式的值是平行四边形的面积（哪个平行四边形呢？就是二阶行列式列向量形成的平行四边形），三阶行列式的值是平行六面体的体积，由此可以推广定义 $n$维平行多面体的体积，即 $n$ 维欧氏空间中线性无关的向量 $v_1, v_2, \cdots, v_n \in \mathbb{R}^n$形成的 $n$ 维平行多面体的体积定义为
+    $$
+    V = |det(v_1, v_2, \cdots, v_n)|
+    $$
+    这里的竖线是取绝对值，因为一般说到体积是正数。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 假设 $D$ 是由直线 $x+y=2$ 与 $x$ 轴，$y$ 轴围成的区域，求 $\int _D \mathrm{e}^{\frac{y-x}{y+x}} \mathrm{d} x \mathrm{d} y$。
+
+    \item 计算直线 $x+y =c, x+y=d, y=ax, y=bx$围出的区域的面积。
+
+    \item 假设 $D$ 是由椭圆 $\frac{x^2}{a^2} + \frac{y^2}{b^2} =1$围成的区域，计算 $\int _D \sqrt{1- \frac{x^2}{a^2} - \frac{y^2}{b^2}} \mathrm{d}x \mathrm{d}y$。
+
+    \item 求由椭球面 $\frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}=1$ 围成的三维区域的体积。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第159页习题10-2第20题) 求由下列曲线所围成的闭区域 $D$ 的面积
+    \begin{enumerate}[(1)]
+        \item $D$ 是由曲线 $xy=4,xy=8,xy^3=5,xy^3=15$所围成的第一象限部分的闭区域。
+        \item $D$ 是由曲线 $y=x^3, y=4x^3, x=y^3, x=4y^3$所围成的第一象限部分的闭区域。 
+    \end{enumerate}
+
+    \item (教材第159页习题10-2第21题) 设闭区域 $D$ 是由直线 $x+y=1, x=0, y=0$所围成，求证
+    \[
+        \int _D \cos \left( \frac{x-y}{x+y} \right) dx dy = \frac{1}{2} \sin 1
+    \]
+\end{enumerate}
+
+\subsection{重积分的应用}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 在学习完一元积分后，我们学会了求曲线的长度，同理，现在我们可以求曲面的面积。假设 $\Sigma$ 是一个二维曲面，我们可能拥有它的显式形式 $z = f(x,y)$，也有可能只知道一般形式，$F(x,y,z)=0$，不过我们丝毫不慌的是知道一般形式可以使用隐函数定理这个利器将其化为显式形式。先考虑显式形式下求曲面的面积。对我们想求面积的区域 $D$ 将其做分割，使用小平行四边形的面积来逼近小曲面的面积（如同我们当初使用直线逼近曲线的长度），小平行四边形的长度为 $f_x(x,y) \mathrm{d}x , f_y(x,y) \mathrm{d}y$，其面积为
+    $$
+    \mathrm{d}A = |f_x \mathrm{d}x \times f_y \mathrm{d}y| = \left|\begin{array}{ccc}\mathbf{i}&\mathbf{j}&\mathbf{k}\\1&0&f_x\\0&1&f_y\end{array}\right|\mathrm{d}x\mathrm{d}y=|(-f_x,-f_y,1)|\mathrm{d}x\mathrm{d}y=\sqrt{1+f_x^2+f_y^2}\mathrm{d}x\mathrm{d}y.
+    $$
+
+    \item 给出曲面一般形式 $F(x,y,z)=0$时，我们使用隐函数定理表达 $f_x$和 $f_y$，隐函数定理的结论已经模糊，重新简单推导即可，将 $z$ 看成是 $x,y$ 的函数，对一般形式的 $x$ 和 $y$ 求偏导
+    $$
+    \frac{\partial F}{\partial x} + \frac{\partial F}{\partial z}\frac{\partial z}{\partial x} = 0 , \quad \frac{\partial F}{\partial y} + \frac{\partial F}{\partial z}\frac{\partial z}{\partial y} = 0 
+    $$
+    即可得到
+    $$
+    \frac{\partial z}{\partial x} = - \frac{F_x}{F_z}, \quad \frac{\partial z}{\partial y} = - \frac{F_y}{F_z}
+    $$
+    从而得到此时的面积微元表达式
+    $$
+    dA=\sqrt{1+f_x^2+f_y^2}\mathrm{d}x\mathrm{d}y=\frac{|\nabla F|}{|F_z|}\mathrm{d}x\mathrm{d}y, \quad A=\int_D\sqrt{1+f_x^2+f_y^2}\mathrm{d}x\mathrm{d}y=\int_D\frac{|\nabla F|}{|F_z|}\mathrm{d}x\mathrm{d}y
+    $$
+    这和我们当初学完一元积分时计算曲线的长度是类似的，曾经给定一段区间，知道这段区间上的曲线方程，我们可以计算出曲线的长度，现在给定一块区域，知道这块区域上曲面的方程我们就可以计算曲面的面积。
+
+    \item 曲面面积的几何解释，求曲面面积时如果知道的是曲面的一般形式，得出的公式中有 $\frac{|\nabla F|}{|F_z|}$这一项，如果从公式中去掉这一项得到的就是划定区域的面积，说明这一项是微元中小平行四边形面积 $S'$和下方对应矩形面积 $S$ 的比值，也就是说 $\frac{|f_x \mathrm{d} x \times f_y \mathrm{d}y| }{\mathrm{d} x \mathrm{d}y} = \frac{|\nabla F|}{|F_z|}$， 我们知道 $\nabla F$是曲面的法向量，$F_z$是 $\nabla F$的 $z$轴分量，他们的大小关系可以使用他们之间的夹角来描述
+    $$
+    \nabla F\cdot(0,0,1)=F_z=|\nabla F|\cos\theta
+    $$
+    $F_z$ 也可以认为是 $xy$ 平面的法向量，平面之间的二面角是等于法向量之间的夹角的，所以小平行四边形和底面矩形的夹角为 $\theta$, 小平行四边形与矩形的面积关系为 $S = S' \cos \theta$
+    故
+    $$
+    dA=\frac{1}{|\cos\theta|}dxdy=\frac{|\nabla F|}{|F_z|}dxdy
+    $$
+    在这里稍微故意强调说提到面积和体积时数字的值为正值，实际上后面会学到曲面积分，为方便理解提出有向面积的概念，也就是叉乘得到的向量作为有向面积，这个向量的大小（大于0）也就是我们这里反复说的面积。
+
+    \item 引出三重积分时以求物体的质量为例子，有了重积分这个工具，我们可以非常容易计算物体的质心以及转动惯量之类，例如已知密度函数 $u(x,y,z)$，则其质量的微分非常容易表达为
+    $$
+    u(x,y,z) \mathrm{d}\sigma
+    $$
+    显然 $x_i$ 个轴的质心计算公式为
+    $$
+    \bar{x}_i = \frac{\int _ D x_i u(x,y,z) \mathrm{d}\sigma}{\int _D u(x,y,z) \mathrm{d}\sigma}
+    $$
+    $x$轴的转动惯量为
+    $$
+    I_x = \int _D (y^2 + z^2) u(x,y,z) \mathrm{d}\sigma
+    $$
+    同理可以写出其他轴的转动惯量计算公式。如果对质心的定义或者转动惯量的定义不熟悉了，请复习物理课中对应的内容。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 求半径为 $a$ 的二维球面的面积。
+
+    \item 计算旋转抛物面 $z = x^2 + y^2$位于平面 $z=9$下方部分的面积。
+
+    \item 计算 $x^2 + y^2 + z^2 =a^2$ 被圆柱面 $x^2 + y^2 = ax$ 所围部分的面积。
+
+    \item 假设一个均匀平面薄片由两个圆 $r=2\sin \theta$和 $r = 4\sin \theta$围成，求质心。
+
+    \item 求一个具有常密度的半球体的质心位置。
+
+    \item 求半径为 $a$ 的均匀半圆薄片对于其直径边的转动惯量。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第177页习题10-4第2题) 求锥面 $z=\sqrt{x^2 + y^2}$被柱面 $z^2 = 2x$所割下部分的曲面面积。
+    
+    \item (教材第178页习题10-4第5题)  设薄片所占的闭区域 $D$ 由抛物线 $y=x^2$ 及直线 $y=x$ 所围成，它在点 $(x,y)$ 处的面密度为 $\mu (x,y) =x^2y$，求该薄片的质心。
+    
+    \item (教材第178页习题10-4第10题) 已知均匀矩形板(面密度为为常量 $\mu$)的长和宽分别为 $b$和 $h$，计算此矩形板对于通过其形心且分别与一边平行的两轴的转动惯量。
+\end{enumerate}
+
+\newpage

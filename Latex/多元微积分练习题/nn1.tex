@@ -1,0 +1,742 @@
+\section{多元函数微分}
+\subsection{欧氏空间与多元函数}
+\subsubsection{知识概要}
+在本节课中，老师总览全局地介绍了多元函数并与之前学过的一元函数相对比，提醒同学们在多元微积分的学习过程中对相关概念的理解可以与一元微积分相对照来帮助理解掌握。这节课程的主要内容是一些基本概念。
+
+\begin{enumerate}
+\item 一维欧氏空间是一条直线，在选定原点和单位长度后等同于实数集 $\mathbb{R}^1$，从而有模长（两点之间的距离），大小关系，四则运算和区间的概念。
+
+\item $n$维欧氏空间在确定直角坐标系后等同于$n$元实数集 $\mathbb{R}^n$
+$$
+\mathbb{R}^n = \{\mathbf{x} = (x_1,x_2,\cdots,x_n)|x_i \in \mathbb{R}^1,i = 1,2,\cdots,n\}
+$$
+$\mathbb{R}^n$中没有了大小和普通乘除法的概念，但是可以定义出模长（两点之间的距离）、内积、加减法。对于三维时，可以定义出叉乘的概念。这里特意强调两点之间的距离
+$$
+|\mathbf{a}-\mathbf{b}| = \sqrt{(a_1-b_1)^2+(a_2-b_2)^2+\cdots+(a_n-b_n)^2}
+$$
+
+\item 利用两点之间的距离的概念，可以定义邻域，从而引入开集、闭集的概念。记 $n$维欧氏空间中的一点为 $\mathbf{x} =(x_1,x_2,\cdots,x_n) $，以 $\mathbf{x}$为中心的 $\delta$ 邻域是指
+$$
+U(\mathbf{x},\delta) = \{\mathbf{y} \in \mathbb{R}^n| |\mathbf{x} - \mathbf{y}|<\delta \}
+$$
+去心邻域是指邻域这个集合内不包括 $\mathbf{x}$这个点
+$$
+\mathring{U}(\mathbf{x},\delta) = \{\mathbf{y} \in \mathbb{R}^n| |\mathbf{x} - \mathbf{y}|<\delta, \mathbf{y} \neq \mathbf{x} \} = \{\mathbf{y} \in \mathbb{R}^n| 0<|\mathbf{x} - \mathbf{y}|<\delta \}
+$$
+
+\item 在邻域这个概念的基础上对欧氏空间中的点集进行分类，某个点 $P\in \mathbb{R}^2$与点集 $E \subset \mathbb{R}^2$的关系分成
+\begin{itemize}
+    \item 内点：存在 $P$ 的某个邻域，$U(P) \subset E$。也就是说这个点在 $E$ 里面，它邻近还有很多个点属于 $E$，它本身也属于 $E$。
+    \item 外点：存在 $P$ 的某个邻域，$U(P) \cap E = \varnothing$。也就是说这个点在 $E$ 外面，它邻近还有很多个点不属于 $E$，它本身也不属于 $E$ 。
+    \item 边界点：$P$ 的任一邻域 $U(P) \cap E \ne \varnothing$ 并且 $U(P) \not\subset E$，即任一邻域内既一定含有属于 $E$ 的点，又一定含有不属于 $E$的点。它本身可以属于 $E$ 也可以不属于 $E$ 。
+    \item 孤立点：$P$存在一个邻域$U(P)$使得 $U(P) \cap E = P$。它非常孤单。因为周围只有它一个点属于 $E$ ，而其他点都不属于 $E$ 。
+    \item 聚点：$\forall \delta >0$，$P$的去心邻域 $\mathring{U}(P, \delta) \cap E \neq \varnothing$，即 $\mathring{U}(P, \delta)$中一定有点属于 $E$。它周围有很邻近的范围都有点属于 $E$，但是它自己可以属于 $E$ ，也可以不属于 $E$ 。
+\end{itemize}
+这些定义逐字逐句更能领会其精妙。内点一定是聚点，聚点可能是内点可能是边界点，孤立点一定是边界点，边界点可能是孤立点可能是聚点（这三句话可能被考试，但是实际上都更多是文字游戏）。根据点集所属点的特征，对集合进行分类
+\begin{itemize}
+    \item 有界集：存在某个正数 $r$，使得点集 $E$ 满足 $E \subset U(O,r)$，其中 $O$ 是坐标原点。直观来说就是能从原点画个大圈将点集 $E$包住。
+    \item 无界集：不是有界集就是无界集，$\forall r >0 , r \in \mathbb{R}, \exists P \in E, s.t. P \notin U(O,r)$。直观来说就是从原点出发不管画多大个圈都包不住点集  $E$。
+    \item 开集：点集 $E$ 中的点全是属于内点。
+    \item 闭集：点集的边界 $\partial E \subset E$。
+    \item 连通集：点集 $E$ 中的任意两点都可以通过折线连起来，并且折线上的点都属于点集 $E$，即点集 $E$中没有孤立点。
+    \item 区域：连通开集，也称为开区域。
+    \item 紧集：有界闭集，也称为闭区域。
+\end{itemize}
+
+\item 极限行为和描述，数列的极限为
+$$
+\lim_{n \to \infty} a_n = A \Leftrightarrow \forall \varepsilon>0,\exists N \in\mathbb{N},\mathbf{s.t.}|a_n-A|<\varepsilon,\forall n\geq N
+$$
+点列的极限为
+$$
+\lim_{n \to \infty} \mathbf{a}_n = \mathbf{A} \Leftrightarrow \forall \varepsilon>0,\exists N \in\mathbb{N},\mathbf{s.t.}|\mathbf{a}_n- \mathbf{A}|<\varepsilon,\forall n\geq N
+$$
+两者看上去相似，但是趋近行为上面可以有很大的不同，这个不同主要来源是一维时只有两个方向趋近，而高维时趋近的方式可以很多，极限存在则说明不论以什么方向趋近极限都应该相同。
+
+\item 多元函数，一个多元函数 $f$ 是从 $\mathbb{R}$ 中的一个非空集合 $D$ 到 $\mathbb{R}^1$ 的一个映射
+$$
+f:D \to \mathbb{R}^1, \mathbf{x} \mapsto f(\mathbf{x})
+$$
+多元函数变量是多个，但是映射到的结果是一个数。
+
+\item 向量值多元函数，向量值多元函数 $\mathbf{f}$ 是从 $\mathbb{R}^n$ 中的一个非空集合 $D$ 到 $\mathbb{R}^m$中的一个映射
+$$
+\mathbf{f}:D \to \mathbb{R}^m, \mathbf{x} \mapsto \mathbf{f}(\mathbf{x})
+$$
+向量值函数是映射的结果是一个向量（具有多个分量），向量值多元函数是变量是多个，映射的结果也是多个的一个函数，每一个分量是一个多元函数。
+
+\item 多元函数的极限，有前面点列的极限基础，对比理解多元函数的极限
+$$
+\lim_{\mathbf{x} \to \mathbf{x}_0} f(\mathbf{x}) = A
+\Leftrightarrow
+\forall \varepsilon>0,\exists \delta>0,\text{ s.t. }|f(\mathbf{x})-A|< \varepsilon,\forall 0<|\mathbf{x}-\mathbf{x}_0|<\delta
+$$
+其几何意义是当点 $\mathbf{x}$ 逼近 $\mathbf{x}_0$ 时，函数值 $f(\mathbf{x})$ 逼近某个确定的值 $A$，类似可以定义多元函数的连续。
+$$
+\lim_{\mathbf{x} \to \mathbf{x}_0} f(\mathbf{x}) = f(\mathbf{x}_0)
+\Leftrightarrow
+\forall \varepsilon>0,\exists \delta>0,\textbf{s.t.}f(\mathbf{x})\in U(f(\mathbf{x}_0),\varepsilon),\forall \mathbf{x} \in \mathring{U}(\mathbf{x}_{0},\delta)
+$$
+
+\item 重极限和累次极限。多元函数的极限行为都叫重极限。累次极限是指几次有先后的极限行为，比如从 $x$ 方向取极限，然后再从 $y$ 方向取极限。一个关键的定理是如果重极限存在，累次极限也存在，那么它们必定相等。同样的，其逆否命题也很有用，如果累次极限不相等，那么重极限一定不存在
+$$
+\text{重极限：} \lim_{(x,y) \to (x_0,y_0)} f(x,y) \quad \text{累次极限：} \lim_{y \to y_0}\lim_{x \to x_0} f(x,y) ,\lim_{x \to x_0}\lim_{y \to y_0} f(x,y) 
+$$
+
+\item 紧集上的连续函数性质，三条，有界（有最大最小值），一致连续，若定义域连通则满足介值定理。
+
+在上面的复习过程中，以黑体区分了一元和多元，实际书写中和之后的文字中不再以黑体区分，因为一般能通过上下文区分出来，在有可能造成歧义的时候才有专门区分的必要。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+\item 求函数 $f(x)$ 在原点的极限
+$$
+f(x,y)=(x^2+y^2)\sin\frac1{x^2+y^2},\quad(x,y)\neq(0,0)
+$$
+
+\item 计算
+$$
+\lim_{(x,y)\to(0,2)}\frac{\sin(xy)}x
+$$
+
+\item 证明函数 $f(x)$ 在原点的极限不存在
+$$
+f(x,y)=\frac{xy}{x^2+y^2},\quad(x,y)\neq(0,0)
+$$
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+\item 用数学语言写出下列概念的严格定义：内点、外点、边界点、孤立点、聚点、开集、闭集。
+
+\item 找出集合 $S=\left\{\left(\frac1m,\frac1n\right)\in\mathbb{R}^2|m,n\in\mathbb{N}\right\}$ 的边界点和聚点。
+
+\item 利用极限的定义证明 $m$ 维点列极限的以下性质：
+    \begin{enumerate}[(1)]
+
+    \item $\lim _{n\to \infty} \mathbf{a}_n = \mathbf{A}$当且仅当点 $\mathbf{a}_n$的每个位置的分量构成的数列收敛到点 $\mathbf{A}$ 对应分量
+    
+    \item 若$\lim _{n\to \infty} \mathbf{a}_n = \mathbf{A}$则$\{ \mathbf{a}_n \}$有界
+    
+    \item $\lim _{n\to \infty} \mathbf{a}_n \cdot \mathbf{b}_n = \lim _{n\to \infty} \mathbf{a}_n \cdot \lim _{n\to \infty} \mathbf{b}_n $
+    \end{enumerate}
+
+\end{enumerate}
+
+\subsection{偏导数}
+\subsubsection{知识概要}
+\begin{enumerate}
+\item 采用将多元函数固定方向研究的办法，假设 $f: D \to \mathbb{R}$ 是一个 $n$ 元函数，$x_0 \in D$是一个定点，选定一个单位向量 $v \in \mathbb{R}^n$，让自变量沿着 $v$方向变动，得到一个一元函数
+$$
+\phi _v(t) = f(x_0 + t v) 
+$$
+容易定义这个一元函数的导数（以及左导数、右导数）
+$$
+\frac{\mathrm{d} \phi_ v}{\mathrm{d} t}(0)=\lim_{t\to 0}\frac{f(x+t v)-f(x)}{t}
+$$
+
+\item 如果将上面说的单位向量选在某个坐标轴上，就得到多元函数 $f$ 在关于 $x_i$ 方向的偏导数定义
+$$
+\partial_i f(x) = \lim_{t\to 0}\frac{f(x+t e_i)-f(x)}{t}
+$$
+其中，$e_i = (0,\cdots,1,\cdots,0)$是 $x_i$ 方向上的单位向量。
+
+\item 在普遍情况下是方向导数的定义，设 $v\in \mathbb{R}^n$的一个单位向量，多元函数 $f:D\to \mathbb{R}$在点 $x$处关于 $v$方向的方向导数定义为
+$$
+\frac{\partial f}{\partial\nu}(x)=\lim_{t\to0^+}\frac{f(x+t\nu)-f(x)}t
+$$
+注意方向导数中极限是一个右极限（从右边靠近过来）。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+\item 曲面$z=f(x,y)=\sqrt{9-2x^2-y^2}$与平面$y=1$交于一条曲线$\gamma.$试求曲线
+$\gamma$在$(\sqrt2,1,2)$点的切线.
+
+\item 求函数 $f(x)$ 在 $(0,0)$的偏导数
+$$
+f(x,y)=\begin{cases}\frac{xy}{x^2+y^2},&(x,y)\neq(0,0)\\0,&(x,y)=(0,0) \end{cases}
+$$
+
+\end{enumerate}
+\subsubsection{习题参考}
+\begin{enumerate}
+\item 证明函数
+$$
+u(x)=\frac1{|x|}:\mathbb{R}^3\setminus\{0\}\to\mathbb{R}
+$$
+满足方程
+$$
+\Delta u=\frac{\partial^2u}{\partial x^2}+\frac{\partial^2u}{\partial y^2}+\frac{\partial^2u}{\partial z^2}=0.
+$$
+
+\item 设 $e_i$是沿 $x_i$ 方向的单位向量，证明 $f$ 在 $x$ 点对 $x_i$ 的偏导数存在的充要条件是： $f$ 在 $x$ 点沿 $e_i$ 和 $-e_i$ 的方向导数存在且互为相反数。
+
+\item (教材第71页习题9-2第1题) 求下列函数的偏导数
+\begin{align*}
+(1). z &= x^3y-y^3x  & (2). s &= \frac{u^2+v^2}{u v} \\
+(3). z &= \sqrt{\ln(x y)} &   (4). z &= \sin(x y)  + \cos ^2(x y) \\
+(5). z &= \ln(\tan(\frac{x}{y})) & (6). z &= (1+x y)^y \\
+(7). u &= x^{\frac{y}{z}} & 8. u &= \arctan (x-y)^z 
+\end{align*}
+
+\item (教材第71页习题9-2第5题)曲线 $L$ 在点 $(2,4,5)$ 处的对于 $x$ 轴的倾角为多少？
+$$
+L：\left\{\begin{matrix}
+z = \frac{x^2+y^2}{4}\\
+y = 4
+\end{matrix}\right.
+$$
+
+\item (教材第71页习题9-2第7题)设 $f(x,y,z) = x y^2+y z^2+z x^2$，求 $f_{xx}(0,0,1)$, $f_{xz}(1,0,2)$, $f_{yz}(0,-1,0)$, $f_{zzx}(2,0,1)$
+\end{enumerate}
+
+\subsection{全微分}
+\subsubsection{知识概要}
+一元微积分的微分几何意义非常明确并且非常有用，即用直线来逼近曲线，微分 $\mathrm{d} y$指的就是当 $x$ 变化 $\Delta x$时，用来逼近的线性函数变化的量。可微的定义是，当 $\Delta x  \to 0$时，函数的增量满足
+$$
+\Delta y = f(x_0 + \Delta x) - f(x_0) = A \Delta x + o(\Delta x)
+$$
+其中 $A$ 是不依赖于 $\Delta x$的数（$A$这个数存在），称为 $f(x)$在 $x_0$处可微。称 $dy = A \Delta x$为函数 $f(x)$在 $x_0$处的微分，函数在该点的线性逼近可以写为
+$$
+y - y_0 = A(x-x_0)
+$$
+这就是曲线在该点的切线方程，容易证明可微是可导的充分必要条件。对于多元微积分，从几何直觉上讲，我们期望能类比切线找到切平面，如用直线对曲线做线性近似，也可以用平面对曲面做线性近似。
+
+多元函数的微分称为全微分，定义为当 $\Delta x = (\Delta x _1, \Delta x_2, \cdots, \Delta x_n) \to 0$时，函数 $y = f(x)$满足
+$$
+\Delta y = f(x_0 + \Delta x) - f(x_0) = A \cdot \Delta x + o(|\Delta x|)
+$$
+这时，$A$为一个数组（行向量$A = (a_1, a_2, \cdots, a_n)$）不依赖于 $\Delta x$（这样一个数组存在），则称 $f$在 $x_0$点可微，其中 $\Delta y$的线性部分被称为 $f$的全微分
+$$ 
+\mathrm{d} y = A \cdot \Delta x = \begin{bmatrix}
+a_1  & a_2 & \cdots & a_n
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\Delta x_1 \\
+\Delta x_2 \\
+\vdots \\
+\Delta x_n
+\end{bmatrix}
+= a_1 \Delta x_1 + a_2 \Delta x_2 + \cdots + a_n \Delta x_n
+$$
+即可对照一维切线方程写出这里的切平面方程
+$$
+y - y_0 = A \cdot \Delta x \Leftrightarrow y - y_0 = a_1 (x_1-x_{10}) + a_2 (x_2 - x_{20}) + \cdots + a_n (x-x_{n0})
+$$
+
+全微分与偏导由一个定理关联起来：若多元函数 $f:D ^n \to \mathbb{R}$在点 $x_0 \in D$可微，则 $f$ 在点 $x_0$连续，$f$在点 $x_0$的所有偏导数都存在，且有
+$$
+dy = \partial _1 f(x_0) \mathrm{d} x_1 + \partial _2 f(x_0) \mathrm{d} x_2  + \cdots + \partial _n f(x_0) \mathrm{d} x_n
+$$
+即 $A = (\partial _1 f(x_0)  + \partial _2 f(x_0)   + \cdots + \partial _n f(x_0) )$。这个证明与一元的微分与导数的证明过程类似，可以由此把玩一下导数与微分之间的关系。这个定理也就是说可微的条件明显比可偏导更苛刻的多，要函数在某一点所有的偏导数都存在并且函数在该点连续的时候函数在该点才可微。
+
+在上面的讨论过程中，我们已经有感觉求微分时的那个不受 $\Delta x$影响的 $A$ 貌似很重要，实际上也确实如此，它称为梯度，定义如下：若 $f$ 在 $x$ 处可微，则 $n$维向量
+$$
+\nabla f (x) = (\partial _1 f(x)  + \partial _2 f(x)   + \cdots + \partial _n f(x))
+$$
+称为函数 $f$ 在 $x$ 处的梯度，对于一维来说，就像是导数一样，导数数字有大小（正负），这里梯度是一个向量（有大小有方向的量）。梯度最重要的一个性质是，对于任意单位向量 $v$，函数$f$ 在 $v$方向上的方向导数为
+$$
+\frac{\partial f}{\partial v} = \nabla f \cdot v
+$$
+又因为 $\nabla f \cdot v = |\nabla f| \cos \theta \ge |\nabla f| $，其中 $\theta$是 $\nabla f$与单位向量 $v$ 之间的夹角，这里就说明，梯度的模长是方向导数中最大的那个数，也就是说沿着梯度的方向，函数变化最快！
+
+在上面我们对于多元函数求了微分，如果是向量值多元函数呢？能够类比推导其微分应该是一个向量等于一个矩阵乘以另外一个向量，也就是将上面的行向量（梯度）变成了矩阵，这个矩阵称为雅可比矩阵，可以记作 $\mathrm{D} F(x)$
+$$
+DF(x):=\left(\begin{array}{cccc}\partial_{1}f_{1}(x)&\partial_{2}f_{1}(x)&\cdots&\partial_{n}f_{1}(x)\\
+\partial_{1}f_{2}(x)&\partial_{2}f_{2}(x)&\cdots&\partial_{n}f_{2}(x)\\
+\vdots&\vdots&\vdots&\vdots\\
+\partial_{1}f_{m}(x)&\partial_{2}f_{m}(x)&\cdots&\partial_{n}f_{m}(x)
+\end{array}\right)_{m\times n}
+$$
+稍微回顾一下线性代数的内容，会发现这里单值一元到多元，再到向量值多元函数他们的微分形式是多么的类似，这应该也反映着他们的本质也是类似的。
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 求函数 $u = x + \sin \frac{y}{2} + \mathrm{e} ^{yz}$的全微分。
+    \item 求函数 $z=\mathrm{e}^{x y}$在点 $(2,1)$的切平面。
+    \item 函数$f = \left\{\begin{matrix}
+    |x|^2 \sin \frac{1}{|x|^2}& x \ne 0; \\
+    0&x=0
+    \end{matrix}\right. $在原点是否可微？
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item 证明函数 $u(x)=|x|:\mathbb{R} ^n \to \mathbb{R}$满足
+    $$
+    |\nabla u(x) | = 1, \forall x \in \mathbb{R}^n
+    $$
+    
+    \item (教材第77页习题9-3第1题)求下列函数的全微分
+    \begin{align*}
+    (1). z & = x y + \frac{x}{y}; &  (2). z &= \mathrm{e}^{\frac{y}{x}}; \\
+    (3). z &= \frac{y}{x^2 + y^2}; & (4). u & = x^{yz}
+    \end{align*}
+    
+    \item (教材第77页习题9-3第2题)求函数 $z = \ln (1+x^2 + y^2)$当 $x=1,y=2$时的全微分。
+    
+    \item (教材第77页习题9-3第3题)求函数 $z = \frac{y}{x}$当 $x=2,y=1, \Delta x = 0.1, \Delta y = -0.2$时的全增量和全微分。
+\end{enumerate}
+
+\subsection{链式法则}
+\subsubsection{知识概要}
+首先介绍了复合函数的概念，多元函数的复合函数的概念和一元函数是类似的，都是映射两次。然后介绍了多元复合函数的求导法则，即链式法则。
+\begin{enumerate}
+    \item 设 $f: \mathbf{D}^n \to \mathbb{R}^m$和 $g: \mathbf{\Omega} ^m \to \mathbb{R} ^l $是两个（可以是向量值）的函数，如果 $R(f) \subset \mathbf{D}(g) $就可以定义复合函数
+    
+    $$
+    g \circ f : \mathbf{D} \to \mathbb{R} ^ l , x \mapsto g(f(x))
+    $$
+    这里注意数学叙述中对定义域和值域严格的描述。
+    
+    一个容易理解的定理保证了复合函数的连续性：如果 $f$ 在 $x$ 点连续，且 $g$ 在点 $y=f(x)$ 处连续，则复合函数 $g \circ f $在 $x$ 点连续。这个定理很符合直觉，也很容易得到证明（严格的证明过程略难，但是证明过程或者说方向是容易思考的），所以比较容易理解。 
+    
+    \item  一元函数的链式法则，
+    $$
+    \frac{dz}{dx}=\frac{dz}{dy}\frac{dy}{dx}
+    $$
+    等价于， $ (g\circ f)^\prime(x)=g^\prime(y)f^\prime(x)$，由此也可以写出一阶微分的形式不变性
+    $$
+    dz=\frac{dz}{dy}dy=\frac{dz}{dx}dx
+    $$
+    \item 多元函数的链式法则，设多元函数 $y = f(x)$和 $z = g(y)$ 均可微，定义雅可比矩阵
+    $$
+    \frac{Dz}{Dx}=\left(\frac{\partial z_i}{\partial x_j}\right)_{l\times n},\frac{Dz}{Dy}=\left(\frac{\partial z_i}{\partial y_k}\right)_{l\times m},\frac{Dy}{Dx}=\left(\frac{\partial y_k}{\partial x_j}\right)_{m\times n}
+    $$
+    有
+    $$
+    \left.\left(\begin{array}{ccc}\frac{\partial z_1}{\partial x_1}&\cdots&\frac{\partial z_1}{\partial x_n}\\\vdots&\vdots&\vdots\\\frac{\partial z_l}{\partial x_1}&\cdots&\frac{\partial z_l}{\partial x_n}\end{array}\right.\right)=\left(\begin{array}{ccc}\frac{\partial z_1}{\partial y_1}&\cdots&\frac{\partial z_1}{\partial y_m}\\\vdots&\vdots&\vdots\\\frac{\partial z_l}{\partial y_1}&\cdots&\frac{\partial z_l}{\partial y_m}\end{array}\right)\cdot\left(\begin{array}{ccc}\frac{\partial y_1}{\partial x_1}&\cdots&\frac{\partial y_1}{\partial x_n}\\\vdots&\vdots&\vdots\\\frac{\partial y_m}{\partial x_1}&\cdots&\frac{\partial y_m}{\partial x_n}\end{array}\right)
+    $$
+    从一阶微分的形式不变性看这个式子，就是把数字换成了矩阵，根据矩阵乘法，对于任意的 $i = 1,2,3, \cdots, l$和 $j = 1,2,3,\cdots,n$，都有
+    $$
+    \frac{\partial z_i}{\partial x_j}=\frac{\partial z_i}{\partial y_1}\frac{\partial y_1}{\partial x_j}+\cdots+\frac{\partial z_i}{\partial y_m}\frac{\partial y_m}{\partial x_j}=\sum_{k=1}^m\frac{\partial z_i}{\partial y_k}\frac{\partial y_k}{\partial x_j}
+    $$
+    用累加符号表示时显得凝练，用矩阵表示时，更加凝练并且有好像抓住了更深层次规律的感觉，使用合适的符号来进行表达，思维和展示都会显得更加唯美。
+    $$
+    \frac{Dz}{Dx}=\frac{Dz}{Dy}\cdot\frac{Dy}{Dx}
+    $$
+    这等价于
+    $$
+    D (g \circ f )(x) = Dg(y) \cdot Df(x) \Leftrightarrow  dz=Dg(y)dy=Dg(y)\cdot Df(x)dx
+    $$
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 设 $z = \mathrm{e} ^u \sin v$且 $u = xy$, $v = x+y$.求 $\frac{\partial z}{\partial x}, \frac{\partial z}{\partial y}.$
+    
+    \item 设 $u = f(x,y,z) = \mathrm{e} ^{x^2 + y^2 + z^2}$且 $z = x^2 \sin y$.求 $\frac{\partial u}{\partial x}$, $\frac{\partial u}{\partial y}$.
+    
+    \item 设 $z = f(u,v,t) = u v+ \sin t$且 $u = \mathrm{e}^t$，$v = \cos t$，求 $\frac{\mathrm{d} z}{ \mathrm{d} t}$
+    
+    \item 设 $w = f(x+y+z, xyz)$ 且 $f \in C^2$.求 $\frac{\partial w}{\partial x}$, $\frac{\partial ^2 w}{\partial x \partial z}$
+    
+    \item 设 $u=f(x,y) \in  C^2$. 在极坐标中计算
+    $$
+    (1) |\nabla u|^2 = \left( \frac{\partial u}{\partial x} \right)^2 + \left( \frac{\partial u}{\partial y} \right)^2 ; \quad (2) \Delta u = \frac{\partial ^2 u}{\partial x^2} + \frac{\partial ^2 u}{\partial y^2}
+    $$
+\end{enumerate}
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第85页习题9-4第6题) 设 $ u = \frac{\mathrm{e}^{ax} (y-z)}{a^2+1}$, 而 $y=a \sin x$, $z = \cos x$ , 求 $\frac{\mathrm{d} u}{ \mathrm{d} x}$
+
+    \item (教材第85页习题9-4第8题) 求下列函数的一阶偏导数（其中 $f$ 具有一阶连续偏导数）
+    \begin{align*}
+        &(1) u = f(x^2-y^2, \mathrm{e} ^{xy}) ; & (2) u = f\left(\frac{x}{y},\frac{y}{z} \right); \\
+     &(3) u = f(x,xy,xyz).
+    \end{align*}
+
+    \item (教材第85页习题9-4第10 题) 设 $z = \frac{y}{f(x^2 - y^2)}$, 其中 $f(u)$ 为可导函数，验证
+    $$
+    \frac{1}{x} \frac{\partial z}{\partial x} + \frac{1}{y}\frac{\partial z}{\partial y} = \frac{z}{y^2}
+    $$
+
+    \item (教材第85页习题9-4第11题) 设 $z = f(x^2+y^2)$, 其中 $f$ 具有二阶导数，求 $\frac{\partial ^2 z}{\partial x^2}$ , $\frac{\partial ^2 z}{\partial x \partial y}$, $\frac{\partial ^2 z}{\partial y^2}$
+\end{enumerate}
+
+\subsection{隐函数定理与反函数定理}
+\subsubsection{知识概要}
+在一元微积分时候学过反函数的求导法则，反函数的倒数与原函数的导数乘积为1，反函数的导数是原函数导数的倒数，对于多元函数，是不是将概念1扩展成单位阵，将倒数扩展成逆就可以了呢？
+
+\begin{enumerate}
+    \item 之所以要了解隐函数求导，是因为在一些情况下隐函数方程是容易得到的，但是显式方程不容易得到，并且从局部上看，很多函数除去一些特殊的点之外都可以将一些变量表示成另外一些变量的函数。首先看方程中只有两个变量的，如果一个二元函数，$F(x,y): D^2 \to \mathbb{R}$ 满足
+    \begin{enumerate}[(1)]
+        \item 在点 $P=(x_0, y_0) \in D $ 的一个邻域上 $ F \in  C^2 $
+        \item $F(x_0, y_0) = 0$
+        \item $F_y(x_0, y_0) \neq 0$
+    \end{enumerate}
+    则
+    \begin{enumerate}[(1)]
+        \item 存在 $P$ 点的一个邻域，使得方程 $F(x,y) =0$唯一决定了一个隐函数 $y = f(x)$， 满足
+        $$ F(x, f(x)) =0 $$
+        \item 函数 $y = f(x)$ 在此邻域上可微
+        \item $f$ 的导数满足
+        $$ \frac{\mathrm{d} y}{\mathrm{d} x } = - \frac{F _x}{F _y} $$
+    \end{enumerate}
+
+    \item 如果方程中有多个变量，可以将其中一个看成其他许多个变量的函数，设多元函数 $F(x,y): D^{n+1} \to \mathbb{R} ^1$ (其中 $x = (x_1,x_2,\cdots, x_n)$是 $n$ 维变量)满足
+    \begin{enumerate}[(1)]
+        \item 在点 $P=(x_0 , y_0 ) \in D$ 的一个邻域上 $F \in C^1$
+        \item $F(x_0, y_0) = 0$
+        \item $F_y (x_0, y_0) \neq 0$
+    \end{enumerate}
+    则
+    \begin{enumerate}[(1)]
+        \item 存在 $P$ 点的一个邻域，使得方程 $F(x,y)=0$唯一决定了一个隐函数 $y = f(x)$，满足 
+        $$ F(x,f(x)) = 0 $$
+        \item 函数 $y = f(x)$在此邻域上可微
+        \item $f$ 的导数满足
+        $$ \frac{\partial y}{ \partial x_i} = - \frac{F_{x_i}}{F_y}, \forall i = 1,2,\cdots , n $$
+    \end{enumerate}
+
+    \item 如果有很多变量和很多方程呢？一个方程使得其中一个变量看成另外其他变量的函数，$m$ 个方程可以使得其中 $m$ 个变量看成其他变量的函数。设向量值多元函数 $F(x,y): D^{n+m} \to \mathbb{R} ^ {m}$ (其中$x=(x_1,x_2, \cdots, x_n)$是 $n$ 维变量， $y= (y_1,y_2,\cdots,y_n)$是 $m$ 维变量)，满足
+    \begin{enumerate}[(1)]
+        \item 在点 $P=(x_0 , y_0 ) \in D$ 的一个邻域上 $F \in C^1$
+        \item $F(x_0, y_0) = 0$
+        \item $ \frac{\partial F}{ \partial y}(x_0, y_0) = \mathrm{det} \frac{D F}{D y}(x_0, y_0) \neq 0$
+    \end{enumerate}
+    则
+    \begin{enumerate}[(1)]
+        \item 存在 $P$ 点的一个邻域，使得方程 $F(x,y)=0$唯一决定了一个隐函数 $y = f(x)$，满足 
+        $$ F(x,f(x)) = 0 $$
+        \item 函数 $y = f(x)$在此邻域上可微
+        \item $f$ 的导数满足
+        $$ \frac{D y}{ D x} = - \left( \frac{D F}{D y} \right)^{-1} \frac{D F}{D x}$$
+    \end{enumerate}
+    
+    \item 这三个结论均可以这样类似地进行推导，隐函数 $y = f(x)$，满足 $F(x,f(x))=0$ 并可微，方程两边同时对 $x$ 求导，得到
+    $$
+    \frac{DF}{Dx}+\frac{DF}{Dy}\frac{Dy}{Dx}=0 
+    $$
+    这等价于线性方程组
+    $$
+    \left(\begin{array}{ccc}\frac{\partial F_1}{\partial y_1}&\cdots&\frac{\partial F_1}{\partial y_m}\\\vdots&\ddots&\vdots\\\frac{\partial F_m}{\partial y_1}&\cdots&\frac{\partial F_m}{\partial y_m}\end{array}\right)\cdot\left(\begin{array}{c}\frac{\partial y_1}{\partial x_j}\\\cdots\\\frac{\partial y_m}{\partial x_j}\end{array}\right)=-\left(\begin{array}{c}\frac{\partial F_1}{\partial x_j}\\\cdots\\\frac{\partial F_m}{\partial x_j}\end{array}\right)
+    $$
+    由克莱姆法则，可以解出
+    $$
+    \frac{\partial y_i}{\partial x_j}=-\frac{\partial(F_1,\cdots,F_i,\cdots,F_m)}{\partial(y_1,\cdots,x_j,\cdots,y_m)}/\frac{\partial(F_1,\cdots,F_i,\cdots,F_m)}{\partial(y_1,\cdots,y_i,\cdots,y_m)}
+    $$
+    这个结论可以巧记，分母都是一样的（系数矩阵），分子的每次只改变一列，改变的那一列与对哪个变量求导有关。
+
+    \item 反函数定理，假设向量值多元函数 $y=f(x): \mathbb{R} ^n \to \mathbb{R} ^n$具有连续的偏导数，并且
+    $$
+    \frac{\partial y}{\partial x} (x_0) = \mathrm{det} \frac{D y}{D x}(x_0) \neq 0
+    $$
+    那么在点 $(x_0, y_0)$附近存在一个邻域，以及定义在此邻域上的一个反函数 $x = f^{-1}(y)$，满足
+    $$
+    \frac{Dx}{Dy}=D(f^{-1})=(Df)^{-1}=\left(\frac{Dy}{Dx}\right)^{-1}
+    $$
+    隐函数定理和反函数定理是等价的。可以相互推导的
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 设 $x^2 + y^2 + z^2 -4z =0$，计算 $\frac{\partial z}{\partial y}$ 和 $\frac{\partial ^2 z}{\partial x ^2}$
+    
+    \item 设 $\begin{cases} x u -yv=0,\\ yu + x v= 1 \end{cases}$，计算 $\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}$
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第92页习题9-5第7题)设 $\Phi(u,v)$具有连续偏导数，证明由方程 $\Phi (cx-az , cy - bz) =0 $所确定的函数 $z = f(x,y)$ 满足 $a \frac{\partial z }{\partial x} + b \frac{\partial z}{\partial y}=c$.
+
+    \item (教材第92页习题9-5第8题)设 $z -3 x y z = a^3$，求 $\frac{\partial ^2 z}{\partial x \partial y}$.
+
+    \item (教材第92页习题9-5第10题) 求下列方程组所确定的函数的导数或偏导数
+    \begin{enumerate}[(1)]
+        \item 设$\begin{cases} z = x^2 + y^2,\\ x^2 + 2 y^2 + 3z^2 = 20, \end{cases}$ 求 $\frac{\mathrm{d} y }{\mathrm{d}x}$, $\frac{\mathrm{d} z}{\mathrm{d} x}$;
+        \item 设 $\begin{cases}
+            x+ y + z = 0, \\
+            x^2 + y^2 + z^2 =1,
+        \end{cases}$
+        求 $\frac{\mathrm{d} x}{\mathrm{d} z}$， $\frac{\mathrm{d} y }{\mathrm{d}z}$;
+        \item 设 $\begin{cases}
+            u = f(uv,v+y), \\
+            v = g(u-x,v^2 y),
+        \end{cases}$
+        其中 $f,g$具有一阶连续偏导数，求 $\frac{\partial u }{\partial x}$, $\frac{\partial v }{\partial x}$；
+        \item 设 $\begin{cases}
+            x = \mathrm{e}^u + u \sin v , \\
+            y = e^u - u \cos v,
+        \end{cases}
+        $求，$\frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y}$.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{几何中的应用}
+\subsubsection{知识概要}
+\begin{enumerate}
+   \item 直线的确定。给定3维空间中的一个点和一个非零向量就可以确定一条直线，设该点为 $P_0 = (x_0, y_0, z_0)$该向量为 $\vec{v} = (a,b,c) \neq 0$，过 $P_0$ 并与 $\vec{v}$平行的直线上的任意一点 $P$ 必然满足 $ \vec{ P P_0} || \vec{v} \Leftrightarrow \vec{P P_0} = t \vec{v} , t \in \mathbb{R} $，由此可以得到直线的(参数)方程
+    $$
+    \begin{cases}
+        x(t) = a t + x_0 \\
+        y(t) = b t + y_0 \\
+        z(t) = c t + z_0
+    \end{cases}
+    $$
+    其中 $t \in \mathbb{R} ^1$ 为参数，或者写成
+    $$
+    \frac{x-x_0}{a}=\frac{y-y_0}{b}=\frac{z-z_0}{c}
+    $$
+    写成这样的形式时当分母为 $0$ 时，要求分子也为 $0$. 经过这里的梳理，看到一个直线的参数方程或者对称式时应该可以从中读出该直线的方向向量。
+
+    \item 确定3维欧氏空间中的一个平面，可以由一个点 $P_0 = (x_0, y_0, z_0)$和两个线性无关的向量 $ \vec{v}_1 = (a_1,b_1,c_1), \vec{v}_2 = (a_2,b_2,c_2) \in \mathbb{R}^3$确定，经过该点 $P_0$并且平行于 $\vec{v}_1, \vec{v}_2$的平面上任意一点必然满足
+    $$
+    \vec{P P_0} = \lambda \vec{v}_1 + \mu \vec{v}_2, \quad \lambda, \mu \in \mathbb{R}
+    $$
+    由此得到平面的(参数)方程
+    $$
+    \begin{cases}
+        x(\lambda, \mu) = a_1 \lambda + a_2 \mu + x_0 \\
+        y(\lambda, \mu) = b_1 \lambda + b_2 \mu + y_0 \\
+        z(\lambda, \mu) = c_1 \lambda + c_2 \mu + z_0
+    \end{cases}
+    $$
+    其中 $\lambda, \mu \in \mathrm{R} ^1 $为参数。指的指出的是向量 $\vec{v}_1$和 $\vec{v}_2$ 线性无关等价于 $\vec{v}_1 \times \vec{v}_2 \neq 0$.
+
+    \item 确定一个平面还可以由一个点 $P_0 = (x_0, y_0, z_0)$和一个非零的向量 $ \vec{n} = (a,b,c) \neq 0 $确定，过点 $P_0$并且垂直于向量 $\vec{n}$ 的平面上任意一点必然满足 
+    $$
+    \vec{ P P_0} \bot \vec{n} \Leftrightarrow \vec{P P_0} \cdot \vec{n} = 0
+    $$
+    由此得到平面的方程(点法式)
+    $$
+    a(x-x_0) + b(y - y_0) + c (z - z_0) = 0
+    $$
+    要能根据点和法向量写出平面的点法式方程，也要能从点法式中分析出平面的法向量。这里的法向量与前一种对平面的表达方式的联系在于 $\vec{n} = \vec{v}_1 \times \vec{v}_2 $
+
+    \item 容易知道，一个方程控制住一个变量（减少一个自由变量），对于一根曲线，如果是参数方程，肯定只有一个参数。空间中任意曲线的参数方程假设为
+    $ x = x(t), y=y(t), z = z(t)$，要求参数方程是一阶可导的，记 $\vec{v}(t) = (x'(t), y'(t), z'(t)) \neq \vec{0}$，$\vec{v}(t)$就是该曲线的切向量，从而可以写出曲线上某点的切线方程和发平面方程。
+
+    \item 3维欧氏空间中的曲面一般方程可以写为
+    $$
+    \Sigma: F(x,y,z) =0
+    $$
+    一共三个变量，一个方程减少了一个自由变量，剩下两个自由变量符合平面需要的两个自由度。该方程 $F$是一阶可微的，$\nabla F = (F_x, F_y, F_z) \neq 0$，曲面上一点 $P_0 \in \Sigma $的一个法向量为 $\vec{n} = \nabla F(P_0)$，有了法向量就可以写出过该点的切平面方程和法线方程。
+    
+    6. 对于曲面 $\Sigma : F(x,y,z)=0$，为什么 $\nabla F$是曲面的一个法向量呢？从数学证明上，可以设 $\phi:(-1,1) \to \mathbb{R}^3$是曲面 $\Sigma$ 上任意一条过 $P_0$ 点的曲线，其中 $\phi(0) = P_0$，那么
+    $$
+    \forall t \in (-1,1), \phi (t) \in \Sigma \Leftrightarrow F(\phi(t)) = 0
+    $$
+    对上面这个方程在 $t=0$处求导，得到
+    $$
+    \nabla F (P_0) \cdot \phi '(0) =0
+    $$
+    这也就说明，向量 $\nabla F(P_0)$ 垂直于曲线 $\phi$ 在 $P_0$点的切向量。所以 $\nabla F$是曲面 $\Sigma$的一个法向量。有没有其他更加直观的理解方式呢？
+
+    \item 知道求取曲面法向量的方法，如果一个曲面以一般形式告诉我们即曲面 $\Sigma : F(x,y,z)=0$，那么在某一点 $P_0 = (x_0,y_0,z_0)$处，曲面的切平面为
+    $$
+    (x-x_0,y-y_0,z-z_0) \cdot (F_x, F_y, F_z) = 0
+    $$
+    过该点的法线方程为
+    $$
+    \frac{x-x_0}{F_x} = \frac{y-y_0}{F_y} = \frac{z-z_0}{F_z}
+    $$
+    如果曲面给出的是显示方程如 $z = f(x,y)$，那么将其改写成一般形式 $F(x,y,z) = f(x,y)-z = 0$，然后就可以使用上面推出的一般形式，此时 $\nabla F = (f_x,f_y,-1)$。值得注意的是，如果将曲面 $F(x,y,z) = f(x,y)-z=0$作成等高线图，那么 $\nabla f = (f_x, f_y)$是垂直于等高线的（变化最快的方向）。
+
+    \item 如果曲面是由参数方程给出的
+    $$
+    \Sigma:\begin{cases}x=x(u,v)\\y=y(u,v)\\z=z(u,v)&\end{cases},(u,v)\in D
+    $$
+    假设 $\frac{\partial(x,y)}{\partial(u,v)}\neq 0$,那么由隐函数定理可知，存在局部隐函数使得
+    $$
+    u=u(x,y),\nu=\nu(x,y)
+    $$
+    于是依然可以得到曲面局部的显示方程
+    $$
+    \Sigma:z=z(u(x,y),\nu(x,y))
+    $$
+    从而得到法向量
+    $$
+    \vec{n}=(z_x,z_y,-1)\quad \parallel \left(\frac{\partial(y,z)}{\partial(u,v)},\frac{\partial(z,x)}{\partial(u,v)},\frac{\partial(x,y)}{\partial(u,v)}\right)
+    $$
+    与法向量平行的这个向量是由隐函数求导退出来的，可以当作练习隐函数的一个机会。
+
+    \item 如果对于曲线的一般方程(曲线的一般方程即用两个方程控制两个变量，使得只有一个自变量，可以理解成两个曲面的交线)
+    $$
+    \gamma:\begin{cases}\Sigma_1:F(x,y,z)=0\\\Sigma_2:G(x,y,z)=0&\end{cases}
+    $$
+    如何求这个曲线的切线呢？有了上面使用隐函数的经验，这里显然三个变量两个方程，可以将其中两个变量看成是另外一个变量的函数，例如看成 $y = y(x), z=z(x)$，这样曲线的一般方程就由隐函数来确定
+    $$
+    \gamma:\begin{cases}\Sigma_1:F(x,y(x),z(x))=0\\\Sigma_2:G(x,y(x),z(x))=0&\end{cases}
+    $$
+    曲线的切向量就可以写成 $(1,y'(x),z'(x))$，这个切向量中的导数可以用隐函数定理求出来。另外一种求取方式是这样想，曲线由两个平面相交而成，那么这个曲线在曲面 $\Sigma _1$上，它的切向量是垂直于曲面 $\Sigma _1$的法向量 $\nabla F$ 的，同理也垂直于 $\Sigma _2$的法向量 $\nabla G$的，这两个法向量根据已知的方程都容易求出，他们的叉积方程和曲线切向量的方向相同(叉积同时垂直于两个做叉的向量的)
+    $$
+    \vec{t}=\vec{n}_{1}\times\vec{n}_{2}=\nabla F\times\nabla G\mathrm{~}(\neq\vec{0}) \left.=\left|\begin{array}{ccc}\vec{i}&\vec{j}&\vec{k}\\F_x&F_y&F_z\\G_x&G_y&G_z\end{array}\right.\right|=\left(\frac{\partial(F,G)}{\partial(y,z)},\frac{\partial(F,G)}{\partial(z,x)},\frac{\partial(F,G)}{\partial(x,y)}\right)
+    $$
+    曲面参数方程的法向量表达式，一般曲线方程切向量的表达式最终的结果是有一定规律从而容易记忆的，可以记住。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 求下面曲线在指定点的切线和法平面给
+    \begin{enumerate}[(1)]
+        \item $x = t, y = t^2 , z = t^3$在点 (1,1,1)处。
+        \item $\begin{cases}
+            x^2 + y^2 +z^2 = 6 \\
+            x + y + z =0 
+        \end{cases}$
+        在点 $(1,-2,1)$处。
+    \end{enumerate}
+
+    \item 求下面平面在指定点的切平面和法线
+    \begin{enumerate}[(1)]
+        \item $x^2 + y^2 + z^2 = 14$在点 $(1,2,3)$处。
+        \item $z = x^2 + y^2 -1$在点 $(2,1,4)$处。
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item (教材第102页习题9-6第6题) 求曲线
+    $\begin{cases}
+            x^2 + y^2 + z^2 - 3x = 0, \\
+            2 x + 3y + 5z - 4 = 0
+        \end{cases}
+    $在点 $(1,1,1)$处的切线及法平面方程。
+
+    \item (教材第92页习题9-5第9题) 求曲面 $a x^2 + b y^2 + c z^2 = 1$在点 $(x_0, y_0, z_0)$处的切平面及法线方程。
+
+    \item (教材第92页习题9-5第10题) 求椭球面 $x^2 + 2 y^2 + z^2 =1$上平行于平面 $x-y+2z=0$的切平面方程。
+
+    \item (教材第92页习题9-5第11题) 求旋转椭球面 $3x^2 + y^2  + z^2 =16 $上点 $(-1, -2 , 3)$处的切平面与 $ xOy $ 面的夹角的余弦。
+\end{enumerate}
+
+\subsection{极值问题}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 首先要清楚极值(最大值、最小值、局部极大值、局部极小值)和极值点(最大值点、最小值点、局部极大值点、局部极小值点)以及驻点的定义，奇异点(不可导的点)称为函数的一个临界点。也要会用数学语言表达这些定义，现在举例局部极小值点的定义，其余应该要能类推写出来：给定函数 $f : D \to \mathbb{R}$和一个点 $P_0 \in D$， 如果 $P_0$ 点附近存在一个邻域 $U$，使得
+    $$
+    f(P) \geq f(P_0), \quad \forall P \in U \cap D
+    $$
+    则称 $f(P_0)$是函数 $f$ 的局部极小值，称 $P_0$是局部极小值点。
+
+    \item 一元函数的极值满足费马引理(Fermat 引理)：若 $ x_0 $ 是局部极值，则 $f(x_0) ' =0$，这个容易通过导数的定义进行证明，如何判断该点是局部极大值还是局部极小值呢？需要用到二阶导，如果二阶导大于0，说明一阶导在单增，一阶导数是从负数变成正数，该函数值是先减小再增大，所以该极值点是局部极小值点，同理，如果二阶导数小于0，说明该点是局部极大值点。如果二阶导数依然为0，但是还想判断出这个点的属性，可以继续求导判断，在实际使用中可以取周围的点算出函数值进行判断。
+    
+    \item 对于多元函数，同样有费马引理，即如果多元函数 $f$ 在 $P_0$ 可微并且 $f(P_0)$ 是一个局部极值，那么 $\nabla f(P_0) = \vec{0}$。多元函数的二阶导数（如果导数存在）怎么求呢？想到向量值多元函数的求导(微分) ，多元函数求一阶导之后得到的不就是一个向量值多元函数吗？那求二阶导直接使用向量值多元函数的求导，得到称为  Hessian 矩阵的一个矩阵，如下
+    $$
+    D^{2}f:=\left(
+    \begin{array}{ccc}
+    f_{11} & \cdots & f_{1n} \\
+    \vdots & \ddots & \vdots \\
+    f_{n1} & \cdots&f_{nn}
+    \end{array}
+    \right)_{n\times n}
+    $$
+    如何判断多元函数的极值点是极大值点还是极小值点呢？就可以用 Hessian 矩阵来判断，如果它正定，那么就是极小值点，如果负定，就是极大值点。矩阵正定和负定的概念在线性代数中介绍过，这里再复习理解一下，也会增加对正定负定的理解。
+
+    \item 对于二元函数，其 Hessian 矩阵为
+    $$
+    D^2f=\left(\begin{array}{cc}f_{xx}&f_{xy}\\f_{yx}&f_{yy}\end{array}\right)
+    $$
+    要使得 $D^2f$ 是正定或者负定的，必有 $f_xx > 0 或者 f_xx < 0 $，并且
+    $$
+    |D^2f|=f_{xx}f_{yy}-f_{xy}^2>0
+    $$
+    如果 $ |D^2f(P_0)| < 0  $，那么 $P_0$ 一定不是极值点，而是鞍点。
+
+    \item 自由极值与条件极值，自由极值是函数没有约束条件下的极值，条件极值是给自由函数增加一些约束条件(如通过方程限制其变量范围等)，将条件极值变成自由极值的一种办法是通过解出限制方程的解，将条件极值问题变成自由极值问题，但是显然这种方法不是通法，因为有些方程是不容易解出显式解的，这时候就可以用到前面学过的隐函数的知识，例如在约束条件
+    $$
+    g(x,y)=0
+    $$
+    下求目标函数 $f(x,y)$的极值，如果 $g_y \neq 0 $，则由隐函数定理，方程 $g(x,y)=0$决定了隐函数 $y=y(x)$，于是这个条件极值问题就变成了求函数
+    $$
+    f(x,y(x))
+    $$
+    的自由极值问题。Lagrange 乘数法的思路和这个类似，最重要的就是运用了隐函数的思想。
+
+    \item 函数 $f(x,y(x))$ 的可微自由极值点一定满足
+    $$
+    \frac d{dx}f(x,y(x))=f_x+f_y\frac{dy}{dx}=f_x-f_y\frac{g_x}{g_y}=0
+    $$
+    这个条件等价于
+    $$
+    \frac{f_x}{g_x}=\frac{f_y}{g_y}=-\lambda \Leftrightarrow\nabla f= - \lambda\nabla g \Leftrightarrow \nabla f + \lambda\nabla g = 0
+    $$
+    这等价于说所求极值点是下面构造出的 Lagrange 函数的一个驻点
+    $$
+    L(x,y;\lambda):=f(x,y)+\lambda g(x,y)
+    $$
+    求该条件极值时，也就相当于求解方程：
+    $$
+    \begin{cases}
+    \nabla L=\nabla f(x,y)+\lambda\nabla g(x,y)=0 \\
+    \partial_\lambda L=g(x,y)=0 
+    \end{cases}
+    $$
+    若同时有多个约束方程，也可以用同样的思路进行处理，例如约束条件如下时
+    $$
+    G(x)=(g_1(x),\cdots,g_m(x))=\vec{0}
+    $$
+    构造 Lagrange 函数
+    $$
+    L(x;\lambda)=f(x)+\vec{\lambda}\cdot G(x)=f(x)+\sum_{i=1}^m\lambda_ig_i(x)
+    $$
+    目标函数 $f(x)$ 在多个约束条件 $G(x) = \vec{0}$ 下的极值点一定是该Lagrange函数的驻点，求解方程
+    $$
+    \begin{cases}\nabla L=\nabla f(x,y)+\lambda\nabla g(x,y)=0 \\
+    \partial_\lambda L=g(x,y)=0
+    \end{cases}
+    $$
+    即可解得极值点。
+\end{enumerate}
+
+\subsubsection{题目示例}
+\begin{enumerate}
+    \item 求对角线长度为2的长方形的最大面积。
+    
+    \item 求满足约束条件 $g(x,y,z) = 9x^2 + 4y^2 - z =0$下，目标函数 $f(x,y,z) = 3 x + 2y+z +5$的最小值。
+
+    \item 求 $f(x,y,z)=z + 2y + 3z$在圆柱面 $x^2+y^2=2$和平面 $y+z=1$ 相交得到的椭圆上能取到的最大和最小值。
+\end{enumerate}
+
+\subsubsection{习题参考}
+\begin{enumerate}
+    \item Find the area of the ellipse of intersection of the plane $x+y+z=0$ and the ellipsoid $x^2 + y^2 + 4z^2=1$. 求椭球 $x^2 + y^2 + 4z^2=1$ 与平面 $x+y+z=0$ 相交得到的椭圆的面积。
+
+    \item (教材第121页习题9-8第6题)从斜边之长为 $l$ 的一切直角三角形中，求有最大周长的直角三角形。
+
+    \item (教材第121页习题9-8第7题)要造一个体积等于定数 $k$ 的长方体无盖水池，应如何选择水池的尺寸，方可使它的表面积最小。
+
+    \item (教材第121页习题9-8第10题)求内接于半径为 $a$ 的球且有最大体积的长方体。
+
+    \item (教材第121页习题9-8第11题)抛物面 $z=x^2+y^2$ 被平面 $x+y+z=1$ 截成一椭圆，求这个椭圆上的点到原点的距离的最大值与最小值。
+\end{enumerate}
+
+\subsection{多元函数的中值定理和Taylor公式}
+\subsubsection{知识概要}
+\begin{enumerate}
+    \item 先回顾一下一元函数的 Lagrange 中值定理，即：闭区间 $[a, b]$ 上的函数 $f(x)$ 在开区间 $(a, b)$上可导，则存在 $\xi\in(a,b)$，使得
+    $$
+    f(b) - f(a) = f'(\xi)(b-a)
+    $$
+    如果还记得Taylor公式，能感受到 Lagrange 中值定理和 Taylor 公式有着非常类似的形式（取最低阶的近似两个公式就一模一样了），Taylor公式是说，$f \in C ^n$，则
+    $$
+    f(x)=\sum_{k=0}^n\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+R_n(x)
+    $$
+    其中 $R_n(x) =o(|x-x_0|^n) $，如果 $f \in C^{n+1}$，则存在 $\xi \in (x_0,x)$，写成 $\xi = x_0 + \theta(x-x_0), \theta \in (0,1)$。
+    $$
+    R_n(x)=\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1}
+    $$
+
+    \item 有了前面的经验，现在就要思考如何把一元的漂亮结果推广到多元呢？使用之前一样的办法，假设 $f:D \to \mathbb{R}$是一个多元函数，给定一个点 $x_0 \in D$和一个单位向量 $\vec{v} \in \mathbb{R}^n $，取一个函数 $\phi(t) = x_0 + t \vec{v}$（这个函数画出了一条线），考虑复合函数 $g(t) = f \circ \phi(t) = f(x_0 + t \vec{v}) $，这样我们就得到了多元函数在某一个方向上的变化，仿若切了一刀，和之前类似把多元函数的复杂变化简单化到一元函数的变化上来了。假设了 $\phi (t)$ 的值域是 $D$ 的子集，并且还需要假设 $D$ 是凸集（即 $\forall x_1, x_2 \in D, x_1+t(x_2-x_1)\in D,\forall t\in[0,1]$，这里可以先不想为何如此），当$f$是可微的，写出$g (t)$的 Lagrange 中值定理（所需要的条件没有写出，但是经过上面的复习应该是明了的）：
+    $$
+    g(t_2) - g(t_1) = g'(\xi) (t_2 - t_1) = \nabla f(x_0 + \xi \vec{v}) \phi'(\xi)(t_2 -t_1) 
+    $$
+    这等价于多元函数 $f(x)$满足（注意$\phi'(\xi)$是单位向量）
+    $$
+    f(x_2)-f(x_1)=\nabla f(\xi)\cdot(x_2-x_1), \xi=x_1+\theta(x_2-x_1),\theta\in(0,1)
+    $$
+    这就是多元函数的中值定理，注意上面的 $x$ 都是向量，所写的点代表点乘。
+
+    \item 类似的办法能不能推广出多元函数的Taylor公式呢？是可以的，得到的形式很类似
+    $$
+    \begin{aligned}
+    f(x)=\sum_{k=0}^n\frac{1}{k!}\nabla ^k f(x_0)\cdot(x-x_0)^k+\frac{1}{(n+1)!}\nabla^{n+1}f(\xi)\cdot(x-x_0)^{n+1}
+    \end{aligned}
+    $$
+    $\nabla$这个符号对于多元函数来说就像一元函数的求导，我们应该不止一次注意到这个类似了，要略微思考上面这个公式的 $\nabla ^k$和 $(x-x_0)^k$表示什么。从几何意义上来说，一元函数的泰勒公式是使用从低阶到高阶的多项式函数（曲线）来对复杂（或者说未知）曲线进行拟合，多元函数的泰勒公式几何意义是一样的，也是使用从低阶到高阶的多项式函数（曲面）来对复杂的曲面进行拟合。
+\end{enumerate}
+
+\newpage
