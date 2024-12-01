@@ -16,4 +16,8 @@ fortran 语言的主要应用领域包括：科学计算、工程应用、数据
 2. 编写Fortran代码：使用文本编辑器编写Fortran代码，例如使用vim、nano等。
 3. 编译Fortran代码：使用Fortran编译器将Fortran代码编译成可执行文件，例如使用gfortran命令。gfortran test.f90 -o myprogram，其中test.f90是Fortran源代码文件，myprogram是可执行文件名。-o选项用于指定可执行文件名。
 4. 运行Fortran程序：在终端中运行可执行文件，例如使用./myprogram命令。
+5. 然后就能看到输出结果。
+
+
+
 
